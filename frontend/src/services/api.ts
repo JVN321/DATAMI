@@ -87,4 +87,24 @@ export const api = {
     });
     return res.data;
   },
+
+  getReadiness: async (district?: string, surgePct: number = 50): Promise<import('../types').ReadinessResponse> => {
+    const res = await client.get<import('../types').ReadinessResponse>('/readiness', {
+      params: { district, surge_pct: surgePct },
+    });
+    return res.data;
+  },
+
+  getTablePreview: async (tableName: string, limit: number = 20, offset: number = 0): Promise<import('../types').TablePreview> => {
+    const res = await client.get<import('../types').TablePreview>(`/data/preview/${tableName}`, {
+      params: { limit, offset },
+    });
+    return res.data;
+  },
+
+  getPipelineSummary: async (): Promise<import('../types').PipelineSummary> => {
+    const res = await client.get<import('../types').PipelineSummary>('/pipeline/summary');
+    return res.data;
+  },
 };
+

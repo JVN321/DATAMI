@@ -375,3 +375,180 @@ def get_workload_analysis(district: Optional[str] = None) -> List[Dict[str, Any]
         })
 
     return results
+
+def get_crime_spree_readiness(district: Optional[str] = None, surge_pct: int = 50) -> Dict[str, Any]:
+    """
+    Simulates operational readiness if a crime spree or surge occurs (e.g., +25%, +50%, +100%).
+    Evaluates whether each police station is currently understaffed and how filling vacancies mitigates risk.
+    """
+    conn = get_db_connection()
+    query = """
+    SELECT s.id, s.name, s.district, s.division, s.latitude, s.longitude,
+           s.sanctioned_staff, s.existing_staff, s.vacancy_staff,
+           (SELECT case_count FROM crime_records WHERE station_id = s.id AND crime_category = 'ALL_TOTAL' ORDER BY year DESC LIMIT 1) as latest_cases,
+           (SELECT year FROM crime_records WHERE station_id = s.id AND crime_category = 'ALL_TOTAL' ORDER BY year DESC LIMIT 1) as latest_year
+    FROM stations s
+    WHERE s.existing_staff > 0
+    """
+    params = []
+    if district and district.lower() != "all":
+        query += " AND s.district = ?"
+        params.append(district)
+
+    query += " ORDER BY s.district, s.name"
+    df = pd.read_sql(query, conn, params=params)
+    conn.close()
+
+    stations_eval = []
+    vulnerable_count = 0
+    moderate_count = 0
+    ready_count = 0
+
+    surge_factor = 1.0 + (surge_pct / 100.0)
+
+    for _, r in df.iterrows():
+        exist = int(r["existing_staff"])
+        sanc = int(r["sanctioned_staff"])
+        vac = int(r["vacancy_staff"])
+        base_cases = int(r["latest_cases"]) if pd.notnull(r["latest_cases"]) else 0
+        yr = int(r["latest_year"]) if pd.notnull(r["latest_year"]) else None
+
+        base_ratio = round(base_cases / exist, 1) if exist > 0 else 0.0
+        spree_cases = int(round(base_cases * surge_factor))
+        spree_ratio = round(spree_cases / exist, 1) if exist > 0 else 0.0
+        ratio_if_filled = round(spree_cases / sanc, 1) if sanc > 0 else spree_ratio
+
+        # Determine understaffing and readiness tier under crime spree
+        vac_rate = (vac / sanc) if sanc > 0 else 0.0
+        
+        if spree_ratio >= 35.0 or (vac_rate >= 0.15 and spree_ratio >= 25.0):
+            tier = "vulnerable"
+            label = "Understaffed Alert"
+            rec = f"Station is under severe strain under a +{surge_pct}% spree. Filling the {vac} vacancies would reduce officer workload from {spree_ratio} to {ratio_if_filled} cases/officer."
+            vulnerable_count += 1
+        elif spree_ratio >= 20.0:
+            tier = "moderate"
+            label = "Moderate Capacity"
+            rec = f"Manageable baseline but requires strategic patrol reserve mobilization during a sustained +{surge_pct}% crime spree."
+            moderate_count += 1
+        else:
+            tier = "ready"
+            label = "Ready & Resilient"
+            rec = f"Healthy officer-to-incident headroom ({spree_ratio} cases/officer) even under a +{surge_pct}% crime spree."
+            ready_count += 1
+
+        lat_val = None if pd.isna(r["latitude"]) else float(r["latitude"])
+        lon_val = None if pd.isna(r["longitude"]) else float(r["longitude"])
+
+        stations_eval.append({
+            "station_id": r["id"],
+            "station_name": r["name"],
+            "district": r["district"],
+            "division": r["division"],
+            "latitude": lat_val,
+            "longitude": lon_val,
+            "sanctioned_staff": sanc,
+            "existing_staff": exist,
+            "vacancy_count": vac,
+            "vacancy_percentage": round(vac_rate * 100, 1),
+            "baseline_annual_cases": base_cases,
+            "latest_reporting_year": yr,
+            "baseline_cases_per_officer": base_ratio,
+            "spree_surge_percentage": surge_pct,
+            "spree_projected_cases": spree_cases,
+            "spree_cases_per_officer": spree_ratio,
+            "cases_per_officer_if_vacancies_filled": ratio_if_filled,
+            "readiness_tier": tier,
+            "readiness_label": label,
+            "recommendation": rec
+        })
+
+    return {
+        "surge_percentage_simulated": surge_pct,
+        "total_stations_assessed": len(stations_eval),
+        "vulnerable_understaffed_count": vulnerable_count,
+        "moderate_capacity_count": moderate_count,
+        "ready_resilient_count": ready_count,
+        "stations": stations_eval
+    }
+
+def get_table_preview(table_name: str, limit: int = 50, offset: int = 0) -> Dict[str, Any]:
+    """Provides tabular preview for Step 3 Data Warehouse viewer."""
+    allowed_tables = ["stations", "crime_records", "staff_strength", "city_macro_crimes"]
+    if table_name not in allowed_tables:
+        table_name = "stations"
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(f"SELECT COUNT(*) as cnt FROM {table_name}")
+    total_count = cursor.fetchone()["cnt"]
+
+    cursor.execute(f"SELECT * FROM {table_name} LIMIT ? OFFSET ?", (limit, offset))
+    rows = [dict(r) for r in cursor.fetchall()]
+    conn.close()
+
+    columns = list(rows[0].keys()) if rows else []
+    return {
+        "table_name": table_name,
+        "total_rows": total_count,
+        "limit": limit,
+        "offset": offset,
+        "columns": columns,
+        "rows": rows
+    }
+
+def get_pipeline_summary() -> Dict[str, Any]:
+    """Returns status and record metrics across all 5 KDD pipeline steps."""
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT COUNT(*) as cnt FROM stations")
+    station_count = cursor.fetchone()["cnt"]
+    cursor.execute("SELECT COUNT(*) as cnt FROM crime_records")
+    crime_count = cursor.fetchone()["cnt"]
+    cursor.execute("SELECT COUNT(*) as cnt FROM staff_strength")
+    staff_count = cursor.fetchone()["cnt"]
+    cursor.execute("SELECT MIN(year) as min_y, MAX(year) as max_y FROM crime_records WHERE crime_category = 'ALL_TOTAL'")
+    y_row = cursor.fetchone()
+    conn.close()
+
+    return {
+        "pipeline_name": "DATAMI KDD Pipeline (PECST525)",
+        "steps": [
+            {
+                "step": 1,
+                "title": "Data Extraction",
+                "status": "completed",
+                "description": "Harvests raw records from official Kerala Police station portals and Kochi City Commissionerate.",
+                "details": f"{station_count} stations targeted, raw HTML cached in backend/app/data/raw/."
+            },
+            {
+                "step": 2,
+                "title": "Cleaning & Normalization",
+                "status": "completed",
+                "description": "Handles zero counts vs missing years, harmonizes station names, and generates spatial concept hierarchies.",
+                "details": "Unified schema: station_name, district, year, crime_category, case_count, source_url."
+            },
+            {
+                "step": 3,
+                "title": "Data Warehouse & Export",
+                "status": "completed",
+                "description": "Consolidates facts and dimensions in SQLite datami_crime.db and exports clean CSVs.",
+                "details": f"{crime_count:,} crime facts, {station_count} station dimensions, {staff_count} staff records."
+            },
+            {
+                "step": 4,
+                "title": "ML Risk & Spree Readiness",
+                "status": "completed",
+                "description": "Trains CART Decision Tree on historical lags and simulates crime spree surge readiness.",
+                "details": "Features: lag1, lag2, rolling_avg, trend_rate, sll_ratio. Evaluates understaffing during crime surges."
+            },
+            {
+                "step": 5,
+                "title": "Geospatial Intelligence Map",
+                "status": "completed",
+                "description": "Interactive Leaflet OpenStreetMap visualizing all stations, risk levels, and drill-down details.",
+                "details": "Clickable markers opening comprehensive station history, risk rating, and readiness gauges."
+            }
+        ]
+    }
+

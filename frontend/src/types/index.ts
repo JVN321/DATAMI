@@ -183,3 +183,58 @@ export interface StationDetail {
   risk_prediction: RiskPrediction | null;
   analytical_notes: string[];
 }
+
+export interface ReadinessStation {
+  station_id: string;
+  station_name: string;
+  district: string;
+  division: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  sanctioned_staff: number;
+  existing_staff: number;
+  vacancy_count: number;
+  vacancy_percentage: number;
+  baseline_annual_cases: number;
+  latest_reporting_year: number | null;
+  baseline_cases_per_officer: number;
+  spree_surge_percentage: number;
+  spree_projected_cases: number;
+  spree_cases_per_officer: number;
+  cases_per_officer_if_vacancies_filled: number;
+  readiness_tier: 'vulnerable' | 'moderate' | 'ready';
+  readiness_label: string;
+  recommendation: string;
+}
+
+export interface ReadinessResponse {
+  surge_percentage_simulated: number;
+  total_stations_assessed: number;
+  vulnerable_understaffed_count: number;
+  moderate_capacity_count: number;
+  ready_resilient_count: number;
+  stations: ReadinessStation[];
+}
+
+export interface TablePreview {
+  table_name: string;
+  total_rows: number;
+  limit: number;
+  offset: number;
+  columns: string[];
+  rows: Record<string, any>[];
+}
+
+export interface PipelineStep {
+  step: number;
+  title: string;
+  status: string;
+  description: string;
+  details: string;
+}
+
+export interface PipelineSummary {
+  pipeline_name: string;
+  steps: PipelineStep[];
+}
+

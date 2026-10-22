@@ -13,7 +13,7 @@ The project is structured specifically to meet the academic objectives of the **
 | Syllabus Module                                 | Theoretical Concepts Covered                                                                                                                                                                  | Practical Implementation in DATAMI                                                                                                                                                                                                                                                                                                                                                   |
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Module 1: Fundamentals & Warehousing**  | • KDD (Knowledge Discovery in Databases) Process• Multidimensional Data Model & Schemas• OLAP Operations (Roll-up, Drill-down, Slice, Dice)                                                | • Automated ETL harvester ingesting 14,000+ real records• Constellation warehouse schema (`crime_records` facts, `stations` & `staff_strength` dimensions)• Dynamic multidimensional filtering across Year $\times$ District $\times$ Station $\times$ Legal Category                                                                                                 |
-| **Module 2: Data Preprocessing**          | • Data Cleaning (Handling missing values vs zero counts)• Concept Hierarchy Generation• Discretization & Numerosity Reduction                                                              | • Strict policy distinguishing true 0-count entries from unobserved years• Spatial hierarchy: District $\rightarrow$ Police Sub-Division $\rightarrow$ Station House• Legal hierarchy: System (IPC/SLL/BNS) $\rightarrow$ Category $\rightarrow$ Specific Crime Head• Discretization of continuous annual case counts into relative risk tiers                           |
+| **Module 2: Data Preprocessing**          | • Data Cleaning (Handling missing values vs zero counts)• Concept Hierarchy Generation• Discretization & Numerosity Reduction                                                              | • Strict policy distinguishing true 0-count entries from unobserved years• Spatial hierarchy: District$\rightarrow$ Police Sub-Division $\rightarrow$ Station House• Legal hierarchy: System (IPC/SLL/BNS) $\rightarrow$ Category $\rightarrow$ Specific Crime Head• Discretization of continuous annual case counts into relative risk tiers                            |
 | **Module 3: Classification & Evaluation** | • Decision Tree induction principles• Splitting Criteria: Gini Impurity & Information Gain• Algorithm: CART / ID3• Evaluation Measures: Accuracy, Precision, Recall, F1, Confusion Matrix | • scikit-learn`DecisionTreeClassifier` (`criterion='gini'`, max depth 3 for complete explainability)• Strictly chronological train/test split (Train: 2016–2019, Test: 2020–2025; no data leakage)• Lagged feature engineering ($T-1$, $T-2$, rolling 2-year average, registration velocity, SLL ratio)• Benchmarking against Zero-R and Persistence (Lag-1) baselines |
 | **Module 4: Spatial & Pattern Analytics** | • Spatial Data Mining• Web Scraping & Data Extraction                                                                                                                                       | • Real-time OpenStreetMap tile mapping using Leaflet• Authentic geocoded police station markers parsed directly from official state portals                                                                                                                                                                                                                                        |
 
@@ -52,13 +52,12 @@ graph TD
         E2["Swagger / OpenAPI Docs<br>(/docs)"]
     end
 
-    subgraph "React Frontend Dashboard"
-        F1["Overview Dashboard<br>(KPIs & Trends)"]
-        F2["Interactive Leaflet Map<br>(Verified OSM Markers)"]
-        F3["Station Deep Dive<br>(Annual Crime Heads)"]
-        F4["ML Risk Prediction & Evaluation<br>(Decision Tree Rules)"]
-        F5["Operational Workload & Staffing"]
-        F6["Data Sources & Syllabus Mapping"]
+    subgraph "React Frontend Dashboard (5-Step Sequential Pipeline)"
+        F1["Step 1: Data Extraction<br>(Portal Harvesting & Caching)"]
+        F2["Step 2: Cleaning & Normalization<br>(Zero Policy & Taxonomy)"]
+        F3["Step 3: Database & CSV Export<br>(SQLite Explorer & CSVs)"]
+        F4["Step 4: ML Risk & Spree Readiness<br>(Decision Tree & Surge Sim)"]
+        F5["Step 5: Visual Map & Station Intel<br>(Leaflet Map & Details Drawer)"]
     end
 
     A1 --> B1
@@ -78,8 +77,7 @@ graph TD
     E1 --> F3
     E1 --> F4
     E1 --> F5
-    E1 --> F6
-    A3 --> F2
+    A3 --> F5
 ```
 
 ---

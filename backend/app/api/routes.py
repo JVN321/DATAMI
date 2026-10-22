@@ -14,7 +14,10 @@ from app.services.crime_service import (
     get_yearly_trends,
     get_crime_categories_breakdown,
     get_station_detail,
-    get_workload_analysis
+    get_workload_analysis,
+    get_crime_spree_readiness,
+    get_table_preview,
+    get_pipeline_summary
 )
 from app.ml.risk_model import (
     predict_future_station_risk,
@@ -128,3 +131,29 @@ def workload_analysis(
     Strictly observational (incident volume indicator, not confirmed overload).
     """
     return get_workload_analysis(district=district)
+
+@router.get("/readiness", tags=["Crime Spree & Staffing Readiness"])
+def crime_spree_readiness(
+    district: Optional[str] = Query(None, description="Filter by district"),
+    surge_pct: int = Query(50, description="Crime spree surge percentage (+25, +50, +100)")
+):
+    """
+    Evaluates whether police stations are currently understaffed and simulates operational readiness
+    during potential crime sprees (+25%, +50%, +100% surge scenarios).
+    """
+    return get_crime_spree_readiness(district=district, surge_pct=surge_pct)
+
+@router.get("/data/preview/{table_name}", tags=["Data Warehouse"])
+def table_preview(
+    table_name: str,
+    limit: int = Query(50, description="Row limit"),
+    offset: int = Query(0, description="Row offset")
+):
+    """Returns paginated tabular preview for stations, crime_records, staff_strength, or city_macro_crimes."""
+    return get_table_preview(table_name=table_name, limit=limit, offset=offset)
+
+@router.get("/pipeline/summary", tags=["KDD Pipeline"])
+def pipeline_summary():
+    """Returns status and metrics across all 5 KDD pipeline steps."""
+    return get_pipeline_summary()
+
