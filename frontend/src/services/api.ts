@@ -88,18 +88,59 @@ export const api = {
     return res.data;
   },
 
-  getReadiness: async (district?: string, surgePct: number = 50): Promise<import('../types').ReadinessResponse> => {
+  getReadiness: async (
+    district?: string, 
+    surgePct: number = 50,
+    threshold: number = 25.0
+  ): Promise<import('../types').ReadinessResponse> => {
     const res = await client.get<import('../types').ReadinessResponse>('/readiness', {
-      params: { district, surge_pct: surgePct },
+      params: { district, surge_pct: surgePct, threshold },
     });
     return res.data;
   },
 
-  getTablePreview: async (tableName: string, limit: number = 20, offset: number = 0): Promise<import('../types').TablePreview> => {
+  getTablePreview: async (
+    tableName: string, 
+    params?: {
+      limit?: number;
+      offset?: number;
+      station_id?: string;
+      year?: number;
+      crime_category?: string;
+      min_cases?: number;
+      search?: string;
+    }
+  ): Promise<import('../types').TablePreview> => {
     const res = await client.get<import('../types').TablePreview>(`/data/preview/${tableName}`, {
-      params: { limit, offset },
+      params: {
+        limit: params?.limit ?? 50,
+        offset: params?.offset ?? 0,
+        station_id: params?.station_id,
+        year: params?.year,
+        crime_category: params?.crime_category,
+        min_cases: params?.min_cases,
+        search: params?.search,
+      },
     });
     return res.data;
+  },
+
+  getOlapRollup: async (year?: number, district?: string): Promise<import('../types').OlapRollupResponse> => {
+    const res = await client.get<import('../types').OlapRollupResponse>('/data/olap/rollup', {
+      params: { year, district },
+    });
+    return res.data;
+  },
+
+  getOlapPivot: async (district?: string): Promise<import('../types').OlapPivotResponse> => {
+    const res = await client.get<import('../types').OlapPivotResponse>('/data/olap/pivot', {
+      params: { district },
+    });
+    return res.data;
+  },
+
+  getCsvExportUrl: (tableName: string): string => {
+    return `${API_BASE}/data/export/csv/${tableName}`;
   },
 
   getPipelineSummary: async (): Promise<import('../types').PipelineSummary> => {

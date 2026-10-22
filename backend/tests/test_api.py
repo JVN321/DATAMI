@@ -99,3 +99,53 @@ def test_workload_analysis():
     assert isinstance(workload, list)
     assert len(workload) > 0
     assert "cases_per_active_officer" in workload[0]
+
+def test_crime_spree_readiness_configurable():
+    res = client.get("/api/readiness?surge_pct=50&threshold=25.0")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["surge_percentage_simulated"] == 50
+    assert data["workload_threshold_used"] == 25.0
+    assert data["total_stations_assessed"] >= 25
+    # Verify Panangad's workload reduction logic
+    panangad = next((s for s in data["stations"] if s["station_id"] == "panangad"), None)
+    assert panangad is not None
+    # If vacancies filled, workload must be less than or equal to spree ratio
+    assert panangad["cases_per_officer_if_vacancies_filled"] <= panangad["spree_cases_per_officer"]
+
+def test_olap_rollup():
+    res = client.get("/api/data/olap/rollup?year=2022")
+    assert res.status_code == 200
+    data = res.json()
+    assert data["operation"] == "OLAP Roll-Up (Station Annual Totals)"
+    assert data["year"] == 2022
+    assert len(data["records"]) >= 25
+    first = data["records"][0]
+    assert "total_crimes" in first
+    assert "ipc_crimes" in first
+    assert "sll_crimes" in first
+    assert first["total_crimes"] >= first["ipc_crimes"]
+
+def test_olap_pivot():
+    res = client.get("/api/data/olap/pivot")
+    assert res.status_code == 200
+    data = res.json()
+    assert len(data["years"]) >= 8
+    assert len(data["rows"]) >= 25
+
+def test_table_preview_filtered():
+    res = client.get("/api/data/preview/crime_records?limit=5&min_cases=1&station_id=ernakulamcentral")
+    assert res.status_code == 200
+    data = res.json()
+    assert len(data["rows"]) > 0
+    for r in data["rows"]:
+        assert r["case_count"] >= 1
+        assert r["station_id"] == "ernakulamcentral"
+
+def test_csv_export():
+    res = client.get("/api/data/export/csv/stations")
+    assert res.status_code == 200
+    assert res.headers["content-type"].startswith("text/csv")
+    assert "latitude" in res.text
+    assert "ernakulamcentral" in res.text
+

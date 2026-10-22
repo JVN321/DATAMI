@@ -13,7 +13,10 @@ import {
   ChevronUp,
   Search,
   Zap,
-  Sliders
+  Sliders,
+  HelpCircle,
+  FileCode,
+  Scale
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -41,8 +44,13 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
 }) => {
   const [evaluation, setEvaluation] = useState<ModelEvaluation | null>(null);
   const [readiness, setReadiness] = useState<ReadinessResponse | null>(null);
+  
+  // Configurable Parameters for Crime Spree & Understaffing
   const [surgePct, setSurgePct] = useState<number>(50);
+  const [workloadThreshold, setWorkloadThreshold] = useState<number>(25.0);
+
   const [showRules, setShowRules] = useState<boolean>(false);
+  const [showFeatureExplainer, setShowFeatureExplainer] = useState<boolean>(true);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [tierFilter, setTierFilter] = useState<string>('all');
   const [loading, setLoading] = useState<boolean>(true);
@@ -51,7 +59,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
     setLoading(true);
     Promise.all([
       api.getModelEvaluation(),
-      api.getReadiness(undefined, surgePct)
+      api.getReadiness(undefined, surgePct, workloadThreshold)
     ])
       .then(([evalRes, readRes]) => {
         setEvaluation(evalRes);
@@ -59,7 +67,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
       })
       .catch((err) => console.error('Failed to load ML readiness data:', err))
       .finally(() => setLoading(false));
-  }, [surgePct]);
+  }, [surgePct, workloadThreshold]);
 
   const featureImportanceData = evaluation?.feature_importances
     ? Object.entries(evaluation.feature_importances).map(([k, v]) => ({
@@ -89,14 +97,14 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
                   Pipeline Step 4 of 5
                 </span>
                 <span className="text-xs font-semibold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200">
-                  Decision Tree & Surge Readiness Simulation
+                  Supervised Classification & Operational Simulation
                 </span>
               </div>
               <h2 className="text-2xl font-black text-slate-900 tracking-tight mt-1">
                 Machine Learning Risk & Crime Spree Readiness
               </h2>
               <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-                Classifying station risk & simulating whether police stations are understaffed to handle potential crime sprees.
+                Explainable CART Decision Tree risk prediction and configurable understaffing surge simulator.
               </p>
             </div>
           </div>
@@ -120,119 +128,278 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
         </div>
       </div>
 
-      {/* Part 1: Interactive Crime Spree Surge Simulator (User Requirement) */}
+      {/* ========================================================================= */}
+      {/* SECTION 1: DETAILED DECISION TREE ARCHITECTURE (User Requirement)         */}
+      {/* ========================================================================= */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+        <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+          <div className="flex items-center space-x-2">
+            <HelpCircle className="w-5 h-5 text-indigo-600" />
+            <div>
+              <h3 className="font-bold text-base text-slate-900">
+                Decision Tree Architecture: Inputs, Outputs & Methodology (KTU S5 Module 3)
+              </h3>
+              <p className="text-xs text-slate-500">
+                Formal specification of feature engineering, splitting criteria, and evaluation baselines.
+              </p>
+            </div>
+          </div>
+
+          <button
+            onClick={() => setShowFeatureExplainer(!showFeatureExplainer)}
+            className="text-xs font-semibold text-indigo-600 hover:text-indigo-800 transition-colors"
+          >
+            {showFeatureExplainer ? 'Collapse Details' : 'Expand Details'}
+          </button>
+        </div>
+
+        {showFeatureExplainer && (
+          <div className="mt-4 space-y-4 text-xs">
+            {/* Target Output (Y) */}
+            <div className="bg-indigo-50/70 border border-indigo-100 rounded-xl p-4">
+              <div className="font-bold text-indigo-950 flex items-center space-x-1.5 text-sm mb-1">
+                <Scale className="w-4 h-4 text-indigo-700" />
+                <span>Target Variable Output (Y): Binary Crime Risk Classification</span>
+              </div>
+              <p className="text-slate-700 leading-relaxed text-[11px]">
+                The model predicts whether a police station will fall into <strong>Higher Relative Risk (Class 1)</strong> or <strong>Lower Relative Risk (Class 0)</strong> during the target reporting period.
+                Stations registering in the upper tercile (top 33%) of historical crime volume across the metropolitan area (exceeding ~1,000 annual registered offenses) are classified as Higher Relative Risk, indicating stations requiring proactive patrol allocation.
+              </p>
+            </div>
+
+            {/* Input Features (X) */}
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="font-bold text-slate-800 text-xs text-rose-700">X₁: lag1_cases (T-1)</div>
+                <div className="font-mono text-[10px] text-slate-500 mt-0.5">Prior Year Volume</div>
+                <p className="text-slate-600 text-[11px] mt-1.5 leading-snug">
+                  Total crime volume registered in year T-1. Captures immediate momentum and baseline activity.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="font-bold text-slate-800 text-xs text-amber-700">X₂: lag2_cases (T-2)</div>
+                <div className="font-mono text-[10px] text-slate-500 mt-0.5">Two-Year Prior Volume</div>
+                <p className="text-slate-600 text-[11px] mt-1.5 leading-snug">
+                  Total crime volume registered in year T-2. Provides medium-term temporal stability.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="font-bold text-slate-800 text-xs text-sky-700">X₃: rolling_2yr_avg</div>
+                <div className="font-mono text-[10px] text-slate-500 mt-0.5">(T-1 + T-2) / 2</div>
+                <p className="text-slate-600 text-[11px] mt-1.5 leading-snug">
+                  Smoothed two-year moving average, filtering out transient single-year shocks or spikes.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="font-bold text-slate-800 text-xs text-purple-700">X₄: trend_rate</div>
+                <div className="font-mono text-[10px] text-slate-500 mt-0.5">(lag1 - lag2) / (lag2 + 1)</div>
+                <p className="text-slate-600 text-[11px] mt-1.5 leading-snug">
+                  Velocity of crime registration. A positive rate indicates accelerating registrations.
+                </p>
+              </div>
+
+              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
+                <div className="font-bold text-slate-800 text-xs text-emerald-700">X₅: sll_ratio</div>
+                <div className="font-mono text-[10px] text-slate-500 mt-0.5">SLL / Total Crimes</div>
+                <p className="text-slate-600 text-[11px] mt-1.5 leading-snug">
+                  Proportion of Special & Local Laws (NDPS narcotics, Abkari liquor, Arms Act). Indicates vice activity.
+                </p>
+              </div>
+            </div>
+
+            {/* Hyperparameters & Strict Temporal Split */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-[11px]">
+              <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <strong>Splitting Metric:</strong> Gini Impurity (CART)
+                <div className="text-slate-500 text-[10px] font-mono mt-0.5">I_G(p) = 1 - Σ p_i²</div>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <strong>Tree Depth:</strong> Max Depth 3
+                <div className="text-slate-500 text-[10px] mt-0.5">Strictly limited for human auditability</div>
+              </div>
+              <div className="p-3 bg-slate-50 rounded-lg border border-slate-100">
+                <strong>Train / Test Split:</strong> Chronological
+                <div className="text-slate-500 text-[10px] mt-0.5">Train: 2016–2019, Test: 2020–2025 (No leakage)</div>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION 2: CONFIGURABLE CRIME SPREE & UNDERSTAFFING SIMULATOR              */}
+      {/* ========================================================================= */}
       <div className="bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl p-6 shadow-md border border-slate-700">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700 pb-5">
           <div>
             <div className="flex items-center space-x-2">
               <Zap className="w-5 h-5 text-amber-400" />
               <h3 className="text-lg font-bold text-white">
-                Crime Spree & Surge Readiness Simulator
+                Configurable Crime Spree & Understaffing Surge Simulator
               </h3>
             </div>
             <p className="text-xs text-slate-300 mt-1 max-w-2xl">
-              Simulate operational strain if a localized crime spree occurs. Analyzes whether stations have sufficient active officer capacity to manage elevated case volumes.
+              Simulate operational strain if a crime spree occurs. Adjust both the <strong>Crime Spree Surge %</strong> and the <strong>Workload Capacity Threshold</strong> to test readiness dynamically.
             </p>
           </div>
 
-          {/* Interactive Surge Selector */}
-          <div className="flex items-center space-x-2 bg-slate-950 p-1.5 rounded-xl border border-slate-700">
-            {[
-              { val: 25, label: '+25% Surge' },
-              { val: 50, label: '+50% Major Spree' },
-              { val: 100, label: '+100% Extreme Crisis' }
-            ].map((opt) => (
-              <button
-                key={opt.val}
-                onClick={() => setSurgePct(opt.val)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
-                  surgePct === opt.val
-                    ? 'bg-rose-600 text-white shadow'
-                    : 'text-slate-400 hover:text-white'
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
+          <div className="flex items-center space-x-2 text-xs">
+            <span className="text-emerald-400 font-semibold bg-emerald-950 px-2.5 py-1 rounded-full border border-emerald-800 flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5 animate-pulse"></span>
+              Live Dynamic Recalculation
+            </span>
           </div>
         </div>
 
-        {/* Readiness KPI Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-5">
-          <div className="bg-slate-800/90 p-4 rounded-xl border border-rose-500/30">
-            <span className="text-xs uppercase tracking-wider text-rose-300 font-bold flex items-center">
-              <AlertTriangle className="w-3.5 h-3.5 mr-1 text-rose-400" />
-              Understaffed Alert Stations
-            </span>
-            <div className="text-3xl font-black text-rose-400 mt-1">
-              {readiness?.vulnerable_understaffed_count ?? '...'} <span className="text-xs text-slate-400 font-normal">of 37</span>
+        {/* Dual Interactive Sliders (User Requirement: Configurable!) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-5">
+          {/* Slider 1: Crime Spree Surge % */}
+          <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-1.5">
+                <Sliders className="w-4 h-4 text-rose-400" />
+                <span className="font-bold text-sm text-slate-200">1. Crime Spree Surge Intensity:</span>
+              </div>
+              <span className="text-base font-extrabold text-rose-400 font-mono">
+                +{surgePct}%
+              </span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">
-              Workload exceeds 35 cases/officer under +{surgePct}% spree
+            <input
+              type="range"
+              min="0"
+              max="150"
+              step="25"
+              value={surgePct}
+              onChange={(e) => setSurgePct(Number(e.target.value))}
+              className="w-full accent-rose-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+            />
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+              <span>0% (Baseline)</span>
+              <span>+25%</span>
+              <span>+50% (Spree)</span>
+              <span>+75%</span>
+              <span>+100% (Crisis)</span>
+              <span>+150%</span>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-2">
+              Simulated Volume = <code className="text-slate-300">Baseline Cases × (1 + {surgePct / 100})</code>
             </p>
           </div>
 
-          <div className="bg-slate-800/90 p-4 rounded-xl border border-amber-500/30">
-            <span className="text-xs uppercase tracking-wider text-amber-300 font-bold flex items-center">
-              <Sliders className="w-3.5 h-3.5 mr-1 text-amber-400" />
-              Moderate Capacity Stations
-            </span>
-            <div className="text-3xl font-black text-amber-400 mt-1">
-              {readiness?.moderate_capacity_count ?? '...'} <span className="text-xs text-slate-400 font-normal">of 37</span>
+          {/* Slider 2: Configurable Workload Threshold */}
+          <div className="bg-slate-950/60 p-4 rounded-xl border border-slate-800">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center space-x-1.5">
+                <Scale className="w-4 h-4 text-amber-400" />
+                <span className="font-bold text-sm text-slate-200">2. Critical Workload Threshold:</span>
+              </div>
+              <span className="text-base font-extrabold text-amber-400 font-mono">
+                {workloadThreshold} cases/officer
+              </span>
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">
-              Can manage baseline; requires reserve deployment during peak spree
+            <input
+              type="range"
+              min="15"
+              max="45"
+              step="5"
+              value={workloadThreshold}
+              onChange={(e) => setWorkloadThreshold(Number(e.target.value))}
+              className="w-full accent-amber-500 cursor-pointer h-2 bg-slate-800 rounded-lg"
+            />
+            <div className="flex justify-between text-[10px] text-slate-400 mt-1 font-mono">
+              <span>15 (Strict)</span>
+              <span>20</span>
+              <span>25 (Standard)</span>
+              <span>30</span>
+              <span>35</span>
+              <span>45 (Lenient)</span>
+            </div>
+            <p className="text-[11px] text-slate-400 mt-2">
+              Stations exceeding <strong className="text-amber-300">{workloadThreshold} cases/officer</strong> trigger an <strong className="text-rose-400">Understaffed Alert</strong>.
             </p>
           </div>
+        </div>
 
-          <div className="bg-slate-800/90 p-4 rounded-xl border border-emerald-500/30">
-            <span className="text-xs uppercase tracking-wider text-emerald-300 font-bold flex items-center">
-              <ShieldCheck className="w-3.5 h-3.5 mr-1 text-emerald-400" />
-              Ready & Resilient Stations
-            </span>
-            <div className="text-3xl font-black text-emerald-400 mt-1">
-              {readiness?.ready_resilient_count ?? '...'} <span className="text-xs text-slate-400 font-normal">of 37</span>
+        {/* Readiness Summary Metrics */}
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 mt-5 pt-5 border-t border-slate-700/80">
+          <div className="bg-slate-800/80 p-3.5 rounded-xl border border-slate-700">
+            <div className="text-[11px] font-bold text-slate-400 uppercase">Assessed Stations</div>
+            <div className="text-2xl font-black text-white mt-1">
+              {readiness?.total_stations_assessed || 0}
             </div>
-            <p className="text-[11px] text-slate-400 mt-1">
-              Healthy officer headroom even under +{surgePct}% elevated criminality
-            </p>
+            <div className="text-[10px] text-slate-400 mt-0.5">Kochi & surrounding jurisdictions</div>
+          </div>
+
+          <div className="bg-rose-950/60 p-3.5 rounded-xl border border-rose-800/60">
+            <div className="text-[11px] font-bold text-rose-300 uppercase flex items-center justify-between">
+              <span>Understaffed Alerts</span>
+              <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
+            </div>
+            <div className="text-2xl font-black text-rose-400 mt-1">
+              {readiness?.vulnerable_understaffed_count || 0}
+            </div>
+            <div className="text-[10px] text-rose-300 mt-0.5">Caseload exceeds {workloadThreshold} c/off</div>
+          </div>
+
+          <div className="bg-amber-950/60 p-3.5 rounded-xl border border-amber-800/60">
+            <div className="text-[11px] font-bold text-amber-300 uppercase">Moderate Capacity</div>
+            <div className="text-2xl font-black text-amber-400 mt-1">
+              {readiness?.moderate_capacity_count || 0}
+            </div>
+            <div className="text-[10px] text-amber-300 mt-0.5">Require patrol reserve mobilization</div>
+          </div>
+
+          <div className="bg-emerald-950/60 p-3.5 rounded-xl border border-emerald-800/60">
+            <div className="text-[11px] font-bold text-emerald-300 uppercase flex items-center justify-between">
+              <span>Ready & Resilient</span>
+              <CheckCircle className="w-3.5 h-3.5 text-emerald-400" />
+            </div>
+            <div className="text-2xl font-black text-emerald-400 mt-1">
+              {readiness?.ready_resilient_count || 0}
+            </div>
+            <div className="text-[10px] text-emerald-300 mt-0.5">Ample officer headroom during spree</div>
           </div>
         </div>
       </div>
 
-      {/* Part 2: Decision Tree Model Performance (Module 3 Syllabus) */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Metrics Card */}
+      {/* ========================================================================= */}
+      {/* SECTION 3: DECISION TREE EVALUATION & FEATURE IMPORTANCE                  */}
+      {/* ========================================================================= */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* Model Performance Card */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
-            <h4 className="font-bold text-sm text-slate-900">Decision Tree Evaluation</h4>
-            <span className="text-[10px] bg-sky-100 text-sky-800 px-2 py-0.5 rounded font-bold">
-              Gini CART
+            <h4 className="font-bold text-sm text-slate-900">Decision Tree Metrics</h4>
+            <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+              CART Gini Depth 3
             </span>
           </div>
 
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-              <span className="text-slate-500">Test Accuracy</span>
-              <div className="text-xl font-black text-sky-600 mt-0.5">
+          <div className="grid grid-cols-2 gap-2 text-center text-xs">
+            <div className="p-2.5 bg-slate-50 rounded-lg">
+              <div className="text-[10px] text-slate-500 font-semibold">Test Accuracy</div>
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {evaluation ? `${Math.round(evaluation.metrics.accuracy * 100)}%` : '...'}
               </div>
             </div>
-            <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-              <span className="text-slate-500">Test F1-Score</span>
-              <div className="text-xl font-black text-indigo-600 mt-0.5">
+            <div className="p-2.5 bg-slate-50 rounded-lg">
+              <div className="text-[10px] text-slate-500 font-semibold">F1-Score</div>
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {evaluation ? `${Math.round(evaluation.metrics.f1_score * 100)}%` : '...'}
               </div>
             </div>
-            <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-              <span className="text-slate-500">Precision</span>
-              <div className="text-lg font-bold text-slate-800 mt-0.5">
+            <div className="p-2.5 bg-slate-50 rounded-lg">
+              <div className="text-[10px] text-slate-500 font-semibold">Precision</div>
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {evaluation ? `${Math.round(evaluation.metrics.precision * 100)}%` : '...'}
               </div>
             </div>
-            <div className="bg-slate-50 p-2.5 rounded-lg border border-slate-100">
-              <span className="text-slate-500">Recall</span>
-              <div className="text-lg font-bold text-slate-800 mt-0.5">
+            <div className="p-2.5 bg-slate-50 rounded-lg">
+              <div className="text-[10px] text-slate-500 font-semibold">Recall</div>
+              <div className="text-lg font-black text-slate-900 mt-0.5">
                 {evaluation ? `${Math.round(evaluation.metrics.recall * 100)}%` : '...'}
               </div>
             </div>
@@ -254,7 +421,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
             <h4 className="font-bold text-sm text-slate-900">Confusion Matrix</h4>
-            <span className="text-[10px] text-slate-500">Chronological Test</span>
+            <span className="text-[10px] text-slate-500">Out-of-Time Test (2020–2025)</span>
           </div>
 
           {evaluation?.metrics.confusion_matrix && (
@@ -289,7 +456,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
             </table>
           )}
           <p className="text-[11px] text-slate-500 mt-2 italic">
-            Evaluated out-of-time on 2020–2025.
+            Zero future leakage test on actual post-2020 Kerala Police records.
           </p>
         </div>
 
@@ -297,7 +464,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
         <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
           <div className="flex items-center justify-between border-b border-slate-100 pb-2 mb-3">
             <h4 className="font-bold text-sm text-slate-900">Feature Importance</h4>
-            <span className="text-[10px] text-slate-500">Gini Split</span>
+            <span className="text-[10px] text-slate-500">Gini Reduction</span>
           </div>
           <div className="h-32 w-full">
             <ResponsiveContainer width="100%" height="100%">
@@ -316,7 +483,31 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
         </div>
       </div>
 
-      {/* Part 3: Station Spree Readiness & Staffing Table */}
+      {/* Human-Readable Decision Rules Drawer */}
+      <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-4">
+        <button
+          onClick={() => setShowRules(!showRules)}
+          className="w-full flex items-center justify-between text-left text-xs font-bold text-slate-800 hover:text-rose-600 transition-colors"
+        >
+          <div className="flex items-center space-x-2">
+            <GitBranch className="w-4 h-4 text-rose-500" />
+            <span>Auditable If-Then Decision Rules (Extracted from Decision Tree Branches)</span>
+          </div>
+          {showRules ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+        </button>
+
+        {showRules && evaluation?.decision_rules && (
+          <div className="mt-3 pt-3 border-t border-slate-100">
+            <pre className="font-mono text-[11px] bg-slate-900 text-slate-200 p-4 rounded-lg overflow-x-auto whitespace-pre leading-relaxed">
+              {evaluation.decision_rules}
+            </pre>
+          </div>
+        )}
+      </div>
+
+      {/* ========================================================================= */}
+      {/* SECTION 4: STATION SPREE READINESS & UNDERSTAFFING TABLE                  */}
+      {/* ========================================================================= */}
       <div className="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-100 gap-3">
           <div>
@@ -324,7 +515,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
               Station Operational Readiness & Understaffing Analysis
             </h3>
             <p className="text-xs text-slate-500">
-              Evaluating capacity under a <strong className="text-rose-600">+{surgePct}% crime spree surge</strong>
+              Simulated under a <strong className="text-rose-600">+{surgePct}% crime spree</strong> with threshold <strong className="text-amber-600">{workloadThreshold} cases/officer</strong>
             </p>
           </div>
 
@@ -345,71 +536,82 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
               onChange={(e) => setTierFilter(e.target.value)}
               className="text-xs bg-slate-50 border border-slate-300 rounded-lg px-2.5 py-1.5 text-slate-700 font-medium"
             >
-              <option value="all">All Tiers</option>
-              <option value="vulnerable">Understaffed Alert Only</option>
-              <option value="moderate">Moderate Only</option>
-              <option value="ready">Ready & Resilient Only</option>
+              <option value="all">All Tiers ({readiness?.stations.length || 0})</option>
+              <option value="vulnerable">Understaffed Alert ({readiness?.vulnerable_understaffed_count || 0})</option>
+              <option value="moderate">Moderate Only ({readiness?.moderate_capacity_count || 0})</option>
+              <option value="ready">Ready & Resilient ({readiness?.ready_resilient_count || 0})</option>
             </select>
           </div>
         </div>
 
-        <div className="overflow-x-auto mt-4">
+        {/* Stations Table */}
+        <div className="overflow-x-auto mt-4 max-h-96">
           <table className="min-w-full divide-y divide-slate-200 text-left text-xs">
-            <thead className="bg-slate-50 text-slate-700 font-semibold">
+            <thead className="bg-slate-50 text-slate-700 font-semibold sticky top-0 z-10 shadow-xs">
               <tr>
                 <th className="py-2.5 px-3">Police Station</th>
-                <th className="py-2.5 px-3 text-right">Active Staff</th>
-                <th className="py-2.5 px-3 text-right">Vacancies</th>
-                <th className="py-2.5 px-3 text-right">Baseline Ratio</th>
-                <th className="py-2.5 px-3 text-right bg-rose-50 text-rose-900">+{surgePct}% Spree Ratio</th>
-                <th className="py-2.5 px-3 text-right text-emerald-800">If Vacancies Filled</th>
-                <th className="py-2.5 px-3 text-center">Spree Readiness Status</th>
+                <th className="py-2.5 px-3">Sub-Division</th>
+                <th className="py-2.5 px-3 text-right">Baseline Cases</th>
+                <th className="py-2.5 px-3 text-right">Spree (+{surgePct}%)</th>
+                <th className="py-2.5 px-3 text-center">Active / Sanc</th>
+                <th className="py-2.5 px-3 text-center">Vacancies</th>
+                <th className="py-2.5 px-3 text-right">Spree Caseload</th>
+                <th className="py-2.5 px-3 text-center">Readiness Status</th>
+                <th className="py-2.5 px-3">Mitigation / Recommendation</th>
                 <th className="py-2.5 px-3 text-center">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 text-slate-700">
-              {filteredStations.map((s) => (
-                <tr key={s.station_id} className="hover:bg-slate-50">
-                  <td className="py-2 px-3 font-semibold text-slate-900">
-                    {s.station_name}
-                    <span className="block text-[10px] text-slate-400 font-normal">{s.division || s.district}</span>
+              {loading ? (
+                <tr>
+                  <td colSpan={10} className="py-8 text-center text-slate-400">Loading readiness data...</td>
+                </tr>
+              ) : filteredStations.map((st) => (
+                <tr key={st.station_id} className="hover:bg-slate-50/80 transition-colors">
+                  <td className="py-2 px-3 font-bold text-slate-900 whitespace-nowrap">{st.station_name}</td>
+                  <td className="py-2 px-3 text-slate-500 whitespace-nowrap">{st.division || '—'}</td>
+                  <td className="py-2 px-3 text-right font-mono">{st.baseline_annual_cases.toLocaleString()}</td>
+                  <td className="py-2 px-3 text-right font-mono font-bold text-purple-700">
+                    {st.spree_projected_cases.toLocaleString()}
                   </td>
-                  <td className="py-2 px-3 text-right font-bold text-slate-800">
-                    {s.existing_staff} / {s.sanctioned_staff}
+                  <td className="py-2 px-3 text-center font-mono">
+                    <span className="font-semibold">{st.existing_staff}</span> / {st.sanctioned_staff}
                   </td>
-                  <td className="py-2 px-3 text-right">
-                    {s.vacancy_count > 0 ? (
-                      <span className="text-amber-700 font-bold">{s.vacancy_count}</span>
+                  <td className="py-2 px-3 text-center font-mono">
+                    {st.vacancy_count > 0 ? (
+                      <span className="text-rose-600 font-bold bg-rose-50 px-1.5 py-0.5 rounded">
+                        {st.vacancy_count}
+                      </span>
                     ) : (
-                      <span className="text-emerald-700">0</span>
+                      <span className="text-slate-400">0</span>
                     )}
                   </td>
-                  <td className="py-2 px-3 text-right font-medium">
-                    {s.baseline_cases_per_officer} <span className="text-[10px] text-slate-400">c/off</span>
-                  </td>
-                  <td className="py-2 px-3 text-right font-bold bg-rose-50/50 text-rose-700">
-                    {s.spree_cases_per_officer} <span className="text-[10px]">c/off</span>
-                  </td>
-                  <td className="py-2 px-3 text-right font-semibold text-emerald-700">
-                    {s.cases_per_officer_if_vacancies_filled} <span className="text-[10px]">c/off</span>
-                  </td>
-                  <td className="py-2 px-3 text-center">
-                    <span className={`px-2.5 py-0.5 rounded-full font-bold text-[10px] ${
-                      s.readiness_tier === 'vulnerable'
-                        ? 'bg-rose-100 text-rose-800'
-                        : s.readiness_tier === 'moderate'
-                        ? 'bg-amber-100 text-amber-800'
-                        : 'bg-emerald-100 text-emerald-800'
-                    }`}>
-                      {s.readiness_label}
+                  <td className="py-2 px-3 text-right font-mono font-bold">
+                    <span className={st.spree_cases_per_officer >= workloadThreshold ? 'text-rose-600' : 'text-slate-800'}>
+                      {st.spree_cases_per_officer} c/off
                     </span>
                   </td>
-                  <td className="py-2 px-3 text-center">
+                  <td className="py-2 px-3 text-center whitespace-nowrap">
+                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
+                      st.readiness_tier === 'vulnerable'
+                        ? 'bg-rose-100 text-rose-800 border border-rose-300'
+                        : st.readiness_tier === 'moderate'
+                        ? 'bg-amber-100 text-amber-800 border border-amber-300'
+                        : 'bg-emerald-100 text-emerald-800 border border-emerald-300'
+                    }`}>
+                      {st.readiness_label}
+                    </span>
+                  </td>
+                  <td className="py-2 px-3 text-[11px] text-slate-600 max-w-xs truncate" title={st.recommendation}>
+                    {st.recommendation}
+                  </td>
+                  <td className="py-2 px-3 text-center whitespace-nowrap">
                     <button
-                      onClick={() => onSelectStation(s.station_id)}
-                      className="text-xs text-sky-600 hover:text-sky-800 font-semibold"
+                      onClick={() => onSelectStation(st.station_id)}
+                      className="text-[11px] font-bold text-rose-600 hover:text-rose-800 hover:underline inline-flex items-center space-x-1"
                     >
-                      Map &rarr;
+                      <span>Map Intel</span>
+                      <ArrowRight className="w-3 h-3" />
                     </button>
                   </td>
                 </tr>
@@ -431,7 +633,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
             onClick={onNextStep}
             className="inline-flex items-center space-x-2 bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs sm:text-sm px-5 py-2.5 rounded-xl shadow-sm transition-all"
           >
-            <span>Proceed to Step 5: Final Map & Station Intelligence</span>
+            <span>Proceed to Step 5: Visual Map & Station Intel</span>
             <ArrowRight className="w-4 h-4" />
           </button>
         </div>

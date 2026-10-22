@@ -53,12 +53,14 @@ export const Step5MapDashboard: React.FC<Step5MapDashboardProps> = ({
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(true);
   const [selectedDistrict, setSelectedDistrict] = useState<string>('all');
   const [loadingDetail, setLoadingDetail] = useState<boolean>(false);
+  const [surgePct, setSurgePct] = useState<number>(50);
+  const [threshold, setThreshold] = useState<number>(25.0);
 
   // Load predictions and readiness for all stations
   useEffect(() => {
     Promise.all([
       api.getRiskPredictions(),
-      api.getReadiness(undefined, 50)
+      api.getReadiness(undefined, surgePct, threshold)
     ]).then(([predRes, readRes]) => {
       const pMap: Record<string, RiskPrediction> = {};
       predRes.predictions.forEach((p) => { pMap[p.station_id] = p; });
@@ -68,7 +70,7 @@ export const Step5MapDashboard: React.FC<Step5MapDashboardProps> = ({
       readRes.stations.forEach((r) => { rMap[r.station_id] = r; });
       setReadinessData(rMap);
     }).catch((err) => console.error('Failed to load map overlays:', err));
-  }, []);
+  }, [surgePct, threshold]);
 
   // Load detail whenever selectedStationId changes
   useEffect(() => {
@@ -309,10 +311,10 @@ export const Step5MapDashboard: React.FC<Step5MapDashboardProps> = ({
 
                 {/* 2. Crime Spree Readiness & Staffing Gauge (User Requirement) */}
                 {readinessData[selectedStationId] && (
-                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-900 text-white space-y-2">
+                  <div className="p-3.5 rounded-xl border border-slate-200 bg-slate-900 text-white space-y-2.5">
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-amber-400 uppercase tracking-wider text-[10px] flex items-center">
-                        <Zap className="w-3 h-3 mr-1" /> Crime Spree Readiness Gauge (+50% Surge)
+                        <Zap className="w-3 h-3 mr-1" /> Crime Spree Readiness (+{surgePct}% Surge)
                       </span>
                       <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                         readinessData[selectedStationId].readiness_tier === 'vulnerable'
@@ -325,14 +327,39 @@ export const Step5MapDashboard: React.FC<Step5MapDashboardProps> = ({
                       </span>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-300 pt-1">
-                      <div>Active Staff: <strong className="text-white">{readinessData[selectedStationId].existing_staff}</strong> / {readinessData[selectedStationId].sanctioned_staff}</div>
-                      <div>Vacancies: <strong className="text-amber-400">{readinessData[selectedStationId].vacancy_count}</strong> ({readinessData[selectedStationId].vacancy_percentage}%)</div>
-                      <div>Baseline Ratio: <strong className="text-white">{readinessData[selectedStationId].baseline_cases_per_officer}</strong> c/off</div>
-                      <div>Spree Ratio: <strong className="text-rose-400">{readinessData[selectedStationId].spree_cases_per_officer}</strong> c/off</div>
+                    {/* Interactive Surge Selector in Drawer */}
+                    <div className="flex items-center space-x-1.5 bg-slate-950 p-1 rounded-lg border border-slate-800">
+                      <span className="text-[10px] text-slate-400 pl-1 font-medium">Surge Sim:</span>
+                      {[25, 50, 100].map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => setSurgePct(s)}
+                          className={`flex-1 py-0.5 rounded text-[10px] font-bold transition-all ${
+                            surgePct === s
+                              ? 'bg-rose-600 text-white shadow-xs'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          +{s}%
+                        </button>
+                      ))}
                     </div>
 
-                    <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-300">
+                    <div className="grid grid-cols-2 gap-2 text-[11px] text-slate-300 pt-0.5">
+                      <div>Active Strength: <strong className="text-white">{readinessData[selectedStationId].existing_staff}</strong> / {readinessData[selectedStationId].sanctioned_staff}</div>
+                      <div>Vacancies: <strong className="text-amber-400">{readinessData[selectedStationId].vacancy_count}</strong> ({readinessData[selectedStationId].vacancy_percentage}%)</div>
+                      <div>Baseline Caseload: <strong className="text-white">{readinessData[selectedStationId].baseline_cases_per_officer}</strong> c/off</div>
+                      <div>Spree Caseload: <strong className="text-rose-400">{readinessData[selectedStationId].spree_cases_per_officer}</strong> c/off</div>
+                    </div>
+
+                    {readinessData[selectedStationId].vacancy_count > 0 && (
+                      <div className="p-2 bg-emerald-950/70 border border-emerald-800 rounded-lg text-[10px] text-emerald-300 flex items-center justify-between">
+                        <span>Staffing Mitigation:</span>
+                        <strong>Filling {readinessData[selectedStationId].vacancy_count} vacancies → {readinessData[selectedStationId].cases_per_officer_if_vacancies_filled} c/off</strong>
+                      </div>
+                    )}
+
+                    <div className="pt-2 border-t border-slate-800 text-[11px] text-slate-300 leading-relaxed">
                       <strong>Readiness Assessment:</strong> {readinessData[selectedStationId].recommendation}
                     </div>
                   </div>

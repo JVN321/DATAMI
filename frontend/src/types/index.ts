@@ -209,11 +209,18 @@ export interface ReadinessStation {
 
 export interface ReadinessResponse {
   surge_percentage_simulated: number;
+  workload_threshold_used?: number;
   total_stations_assessed: number;
   vulnerable_understaffed_count: number;
   moderate_capacity_count: number;
   ready_resilient_count: number;
   stations: ReadinessStation[];
+}
+
+export interface TableFilterOptions {
+  stations: { id: string; name: string }[];
+  years: number[];
+  categories: string[];
 }
 
 export interface TablePreview {
@@ -222,6 +229,36 @@ export interface TablePreview {
   limit: number;
   offset: number;
   columns: string[];
+  rows: Record<string, any>[];
+  filter_options?: TableFilterOptions;
+}
+
+export interface OlapRollupRecord {
+  rank: number;
+  station_id: string;
+  station_name: string;
+  district: string;
+  division: string | null;
+  year: number;
+  total_crimes: number;
+  ipc_crimes: number;
+  sll_crimes: number;
+  existing_staff: number;
+  sanctioned_staff: number;
+  cases_per_officer: number;
+}
+
+export interface OlapRollupResponse {
+  operation: string;
+  year: number;
+  total_stations: number;
+  total_crimes_aggregated: number;
+  records: OlapRollupRecord[];
+}
+
+export interface OlapPivotResponse {
+  operation: string;
+  years: string[];
   rows: Record<string, any>[];
 }
 
@@ -237,4 +274,5 @@ export interface PipelineSummary {
   pipeline_name: string;
   steps: PipelineStep[];
 }
+
 

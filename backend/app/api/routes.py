@@ -4,7 +4,7 @@ Provides structured JSON responses for crime statistics, station coordinates,
 OLAP aggregations, Decision Tree risk predictions, and model evaluation metrics.
 """
 
-from fastapi import APIRouter, HTTPException, Query
+from fastapi import APIRouter, HTTPException, Query, Response
 from typing import Optional, List, Dict, Any
 
 from app.services.station_service import get_all_stations, get_station_by_id
@@ -16,8 +16,11 @@ from app.services.crime_service import (
     get_station_detail,
     get_workload_analysis,
     get_crime_spree_readiness,
+    get_olap_rollup,
+    get_olap_pivot,
     get_table_preview,
-    get_pipeline_summary
+    get_pipeline_summary,
+    export_table_to_csv
 )
 from app.ml.risk_model import (
     predict_future_station_risk,
@@ -135,25 +138,76 @@ def workload_analysis(
 @router.get("/readiness", tags=["Crime Spree & Staffing Readiness"])
 def crime_spree_readiness(
     district: Optional[str] = Query(None, description="Filter by district"),
-    surge_pct: int = Query(50, description="Crime spree surge percentage (+25, +50, +100)")
+    surge_pct: int = Query(50, description="Crime spree surge percentage (+25, +50, +100)"),
+    threshold: float = Query(25.0, description="Configurable workload capacity threshold (cases/officer)")
 ):
     """
     Evaluates whether police stations are currently understaffed and simulates operational readiness
     during potential crime sprees (+25%, +50%, +100% surge scenarios).
+    Threshold for critical officer caseload is configurable (default: 25.0 cases/officer).
     """
-    return get_crime_spree_readiness(district=district, surge_pct=surge_pct)
+    return get_crime_spree_readiness(district=district, surge_pct=surge_pct, threshold=threshold)
+
+@router.get("/data/olap/rollup", tags=["Data Warehouse & OLAP"])
+def olap_rollup(
+    year: Optional[int] = Query(None, description="Filter by year (defaults to latest complete year)"),
+    district: Optional[str] = Query(None, description="Filter by district")
+):
+    """
+    OLAP Roll-Up Operation (Module 1):
+    Aggregates granular crime facts across all 37 police stations into annual summaries
+    showing Total Cases, IPC, SLL, and staff workload ratios.
+    """
+    return get_olap_rollup(year=year, district=district)
+
+@router.get("/data/olap/pivot", tags=["Data Warehouse & OLAP"])
+def olap_pivot(
+    district: Optional[str] = Query(None, description="Filter by district")
+):
+    """
+    OLAP Pivot Operation (Module 1):
+    Generates a cross-tabulation matrix of Stations (rows) x Years (columns)
+    for total annual crime volumes.
+    """
+    return get_olap_pivot(district=district)
 
 @router.get("/data/preview/{table_name}", tags=["Data Warehouse"])
 def table_preview(
     table_name: str,
     limit: int = Query(50, description="Row limit"),
-    offset: int = Query(0, description="Row offset")
+    offset: int = Query(0, description="Row offset"),
+    station_id: Optional[str] = Query(None, description="Optional station ID filter"),
+    year: Optional[int] = Query(None, description="Optional year filter"),
+    crime_category: Optional[str] = Query(None, description="Optional crime category filter"),
+    min_cases: Optional[int] = Query(None, description="Minimum case count (e.g. 1 to hide 0s)"),
+    search: Optional[str] = Query(None, description="Text search across crime heads or station names")
 ):
-    """Returns paginated tabular preview for stations, crime_records, staff_strength, or city_macro_crimes."""
-    return get_table_preview(table_name=table_name, limit=limit, offset=offset)
+    """Returns paginated tabular preview for stations, crime_records, staff_strength, or city_macro_crimes with filters."""
+    return get_table_preview(
+        table_name=table_name,
+        limit=limit,
+        offset=offset,
+        station_id=station_id,
+        year=year,
+        crime_category=crime_category,
+        min_cases=min_cases,
+        search=search
+    )
+
+@router.get("/data/export/csv/{table_name}", tags=["Data Warehouse"])
+def download_csv(table_name: str):
+    """Generates and streams a downloadable CSV export of the requested warehouse table or OLAP rollup."""
+    csv_content = export_table_to_csv(table_name=table_name)
+    filename = f"{table_name}.csv"
+    return Response(
+        content=csv_content,
+        media_type="text/csv",
+        headers={"Content-Disposition": f"attachment; filename={filename}"}
+    )
 
 @router.get("/pipeline/summary", tags=["KDD Pipeline"])
 def pipeline_summary():
     """Returns status and metrics across all 5 KDD pipeline steps."""
     return get_pipeline_summary()
+
 
