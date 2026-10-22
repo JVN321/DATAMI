@@ -61,7 +61,7 @@
     "sll_ratio": 0.05133444680511248
   },
   "decision_rules": "|--- lag1_cases <= 919.00\n|   |--- rolling_avg <= 570.25\n|   |   |--- rolling_avg <= 398.25\n|   |   |   |--- class: 0\n|   |   |--- rolling_avg >  398.25\n|   |   |   |--- class: 1\n|   |--- rolling_avg >  570.25\n|   |   |--- class: 0\n|--- lag1_cases >  919.00\n|   |--- sll_ratio <= 0.42\n|   |   |--- class: 0\n|   |--- sll_ratio >  0.42\n|   |   |--- lag1_cases <= 5968.50\n|   |   |   |--- class: 1\n|   |   |--- lag1_cases >  5968.50\n|   |   |   |--- class: 0\n",
-  "trained_at": "2026-10-22T23:25:00.729772",
+  "trained_at": "2026-10-22T23:59:47.528624",
   "limitations": [
     "Predicts relative risk categories (Higher vs Lower), not specific street coordinates or individual offenses.",
     "Reflects recorded FIR registrations, which are influenced by reporting rates, special police drives (e.g. NDPS crackdowns), and lockdown disruptions in 2020\u20132021.",

@@ -294,7 +294,7 @@ export const Step5MapDashboard: React.FC<Step5MapDashboardProps> = ({
                   }`}>
                     <div className="flex items-center justify-between">
                       <span className="font-bold text-slate-500 uppercase tracking-wider text-[10px]">
-                        Decision Tree Risk Rating (Module 3)
+                        Decision Tree Risk Rating
                       </span>
                       <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-white border">
                         {Math.round((stationDetail.risk_prediction.confidence || 0) * 100)}% Confidence

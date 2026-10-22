@@ -10,7 +10,10 @@ import { Metadata, Station } from './types';
 import { ShieldCheck, ArrowRight, ArrowLeft } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<string>('step1');
+  const [activeTab, setActiveTab] = useState<string>(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('tab') || 'step1';
+  });
   const [metadata, setMetadata] = useState<Metadata | null>(null);
   const [stations, setStations] = useState<Station[]>([]);
   const [selectedStationId, setSelectedStationId] = useState<string>('ernakulamcentral');

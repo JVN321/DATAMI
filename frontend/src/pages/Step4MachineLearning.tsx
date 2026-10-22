@@ -137,7 +137,7 @@ export const Step4MachineLearning: React.FC<Step4MachineLearningProps> = ({
             <HelpCircle className="w-5 h-5 text-indigo-600" />
             <div>
               <h3 className="font-bold text-base text-slate-900">
-                Decision Tree Architecture: Inputs, Outputs & Methodology (KTU S5 Module 3)
+                Decision Tree Architecture: Inputs, Outputs & Methodology
               </h3>
               <p className="text-xs text-slate-500">
                 Formal specification of feature engineering, splitting criteria, and evaluation baselines.
