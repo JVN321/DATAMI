@@ -29,7 +29,7 @@ def generate_architecture_flowchart():
     stages = [
         ("Step 1", "Data\nExtraction", "• 37 Police Stations\n• Official Portals\n• Raw HTML Cache\n• Leaflet GPS Parsing", "#0284c7"),
         ("Step 2", "Cleaning &\nNormalization", "• Zero vs Null Policy\n• Name Harmonization\n• Spatial Hierarchy\n• IPC / SLL Taxonomy", "#4f46e5"),
-        ("Step 3", "Warehouse &\nOLAP Cubes", "• SQLite (datami_crime.db)\n• 14,262 Crime Facts\n• Annual Roll-ups\n• 10-Yr Pivot Matrix", "#0f172a"),
+        ("Step 3", "Warehouse &\nOLAP Cubes", "• SQLite Database\n• 14,262 Crime Facts\n• Annual Roll-ups\n• 10-Yr Pivot Matrix", "#0f172a"),
         ("Step 4", "ML Risk &\nReadiness", "• CART Tree (Depth 3)\n• 5 Lagged Features\n• Spree Surge Sim\n• Vacancy Modeling", "#e11d48"),
         ("Step 5", "Geospatial\nIntelligence", "• Leaflet Map Pins\n• Risk-Coded Badges\n• Drill-Down Drawer\n• Historical Trends", "#059669"),
     ]
@@ -242,6 +242,60 @@ def generate_olap_rollup_chart():
     plt.close()
     print(f"Saved: {out_path}")
 
+# -----------------------------------------------------------------------------
+# 7. Fact Table Storage & Offense Head Distribution
+# -----------------------------------------------------------------------------
+def generate_fact_table_chart():
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(6.2, 3.6), dpi=300, gridspec_kw={'width_ratios': [1.38, 1]})
+
+    # Data for Ax1: Top Specific Offense Heads (excluding aggregate 'Other' and totals)
+    heads = ['Robbery', 'Burglary', 'Riots', 'Molestation', 'Theft', 'Cheating', 'Hurt', 'NDPS (Drugs)', 'Prohibition (Liquor)']
+    counts = [512, 559, 1396, 1534, 2512, 5044, 5801, 13534, 24420]
+    colors = ['#6366f1', '#6366f1', '#6366f1', '#6366f1', '#6366f1', '#6366f1', '#6366f1', '#0ea5e9', '#0ea5e9']
+
+    bars = ax1.barh(heads, counts, color=colors, height=0.6, edgecolor='#334155', lw=0.6)
+    ax1.set_xlabel('Total Stored Cases (All Years)', fontsize=8, fontweight='bold')
+    ax1.set_title('Top Stored Offense Heads in Fact Table', fontsize=8.5, fontweight='bold', pad=8)
+    ax1.grid(axis='x', linestyle='--', alpha=0.4)
+    ax1.tick_params(axis='both', labelsize=7.5)
+
+    for bar, val in zip(bars, counts):
+        label = f'{val:,}' if val < 10000 else f'{val/1000:.1f}k'
+        ax1.text(val + 500, bar.get_y() + bar.get_height()/2, label, 
+                 va='center', ha='left', fontsize=7, fontweight='bold', color='#0f172a')
+    ax1.set_xlim(0, 31000)
+
+    from matplotlib.patches import Patch
+    legend_elements = [
+        Patch(facecolor='#6366f1', edgecolor='#334155', label='IPC Crimes'),
+        Patch(facecolor='#0ea5e9', edgecolor='#334155', label='Special Laws (SLL)')
+    ]
+    ax1.legend(handles=legend_elements, loc='lower right', fontsize=7)
+
+    # Data for Ax2: Fact Table Row Distribution Breakdown (14,262 rows)
+    cats = ['IPC Heads\n(24 Heads)', 'SLL Heads\n(18 Heads)', 'Roll-up Totals\n(3 Heads)']
+    row_counts = [7608, 5706, 948]
+    cat_colors = ['#4f46e5', '#0284c7', '#64748b']
+
+    bars2 = ax2.bar(cats, row_counts, color=cat_colors, width=0.55, edgecolor='#1e293b', lw=0.8)
+    ax2.set_ylabel('Fact Table Rows (Total: 14,262)', fontsize=8, fontweight='bold')
+    ax2.set_title('Grain & Storage Breakdown', fontsize=8.5, fontweight='bold', pad=8)
+    ax2.grid(axis='y', linestyle='--', alpha=0.4)
+    ax2.tick_params(axis='x', labelsize=7)
+    ax2.tick_params(axis='y', labelsize=7.5)
+    ax2.set_ylim(0, 9600)
+
+    for bar, val in zip(bars2, row_counts):
+        pct = val / 14262 * 100
+        ax2.text(bar.get_x() + bar.get_width()/2, val + 250, f'{val:,}\n({pct:.1f}%)',
+                 ha='center', va='bottom', fontsize=7, fontweight='bold', color='#0f172a')
+
+    plt.tight_layout()
+    out_path = os.path.join(OUT_DIR, "fact_table_storage.png")
+    plt.savefig(out_path, dpi=300, bbox_inches='tight', transparent=True)
+    plt.close()
+    print(f"Saved: {out_path}")
+
 if __name__ == "__main__":
     generate_architecture_flowchart()
     generate_decision_tree_diagram()
@@ -249,4 +303,5 @@ if __name__ == "__main__":
     generate_feature_importance_chart()
     generate_spree_simulation_chart()
     generate_olap_rollup_chart()
+    generate_fact_table_chart()
     print("All figures regenerated cleanly!")
