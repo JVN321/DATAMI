@@ -1,0 +1,71 @@
+{
+  "status": "success",
+  "algorithm": "Decision Tree Classifier (CART / Gini Index)",
+  "syllabus_mapping": "Module 3: Decision Tree Construction Principle & Evaluation Measures (PECST525)",
+  "hyperparameters": {
+    "criterion": "gini",
+    "max_depth": 3,
+    "min_samples_split": 4,
+    "split_year": 2020
+  },
+  "target_definition": "Relative Crime Risk tier: 1 = Higher Relative Risk (>= 824.5 annual recorded incidents), 0 = Lower Relative Risk (< 824.5)",
+  "dataset_summary": {
+    "total_samples": 241,
+    "train_samples": 128,
+    "train_years": "2016\u20132019",
+    "test_samples": 113,
+    "test_years": "2020\u20132025"
+  },
+  "metrics": {
+    "accuracy": 0.6106,
+    "precision": 0.2703,
+    "recall": 0.3704,
+    "f1_score": 0.3125,
+    "confusion_matrix": [
+      [
+        59,
+        27
+      ],
+      [
+        17,
+        10
+      ]
+    ],
+    "confusion_matrix_labels": [
+      [
+        "True Low Risk (TN)",
+        "False High Risk (FP)"
+      ],
+      [
+        "False Low Risk (FN)",
+        "True High Risk (TP)"
+      ]
+    ]
+  },
+  "baselines": {
+    "zero_r_majority": {
+      "name": "Zero-R (Always predicts dominant class)",
+      "accuracy": 0.7611
+    },
+    "persistence_lag1": {
+      "name": "Persistence Baseline (Predicts previous year risk tier)",
+      "accuracy": 0.646,
+      "f1_score": 0.375
+    }
+  },
+  "feature_importances": {
+    "lag1_cases": 0.8853177991243677,
+    "lag2_cases": 0.0,
+    "rolling_avg": 0.06334775407051983,
+    "trend_rate": 0.0,
+    "sll_ratio": 0.05133444680511248
+  },
+  "decision_rules": "|--- lag1_cases <= 919.00\n|   |--- rolling_avg <= 570.25\n|   |   |--- rolling_avg <= 398.25\n|   |   |   |--- class: 0\n|   |   |--- rolling_avg >  398.25\n|   |   |   |--- class: 1\n|   |--- rolling_avg >  570.25\n|   |   |--- class: 0\n|--- lag1_cases >  919.00\n|   |--- sll_ratio <= 0.42\n|   |   |--- class: 0\n|   |--- sll_ratio >  0.42\n|   |   |--- lag1_cases <= 5968.50\n|   |   |   |--- class: 1\n|   |   |--- lag1_cases >  5968.50\n|   |   |   |--- class: 0\n",
+  "trained_at": "2026-10-22T21:58:42.314708",
+  "limitations": [
+    "Predicts relative risk categories (Higher vs Lower), not specific street coordinates or individual offenses.",
+    "Reflects recorded FIR registrations, which are influenced by reporting rates, special police drives (e.g. NDPS crackdowns), and lockdown disruptions in 2020\u20132021.",
+    "Annual granularity limits within-year seasonal detection.",
+    "Raw counts do not account for resident population density or daily commuter influx."
+  ]
+}

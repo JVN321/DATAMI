@@ -1,0 +1,251 @@
+id,station_id,rank,sanctioned,existing,vacancy
+195,aluvaeast,Assistant Sub Inspector of Police,2,3,0
+199,aluvaeast,Civil Police Officer,36,33,3
+192,aluvaeast,Inspector Of Police,1,1,0
+197,aluvaeast,Senior Civil Police Officer,20,20,0
+194,aluvaeast,Sub Inspector Of Police,6,3,3
+198,aluvaeast,Woman Civil Police Officer,8,6,2
+196,aluvaeast,Woman Senior Civil Police Officer,1,0,1
+193,aluvaeast,Woman Sub Inspector Of Police,0,1,0
+202,aluvawest,Assistant Sub Inspector of Police,2,1,1
+206,aluvawest,Civil Police Officer,18,13,5
+205,aluvawest,Driver Civil Police Officer,0,0,0
+200,aluvawest,Inspector Of Police,1,1,0
+203,aluvawest,Senior Civil Police Officer,8,6,2
+201,aluvawest,Sub Inspector Of Police,2,2,0
+204,aluvawest,Woman Civil Police Officer,5,3,2
+136,ambalamedu,Assistant Sub Inspector of Police,2,2,0
+139,ambalamedu,Civil Police Officer,25,23,2
+134,ambalamedu,Inspector Of Police,1,1,0
+137,ambalamedu,Senior Civil Police Officer,7,7,0
+135,ambalamedu,Sub Inspector Of Police,2,2,0
+138,ambalamedu,Woman Civil Police Officer,7,4,3
+209,angamaly,Assistant Sub Inspector of Police,3,3,0
+213,angamaly,Civil Police Officer,26,24,2
+207,angamaly,Inspector Of Police,1,1,0
+214,angamaly,Part Time Sweeper,1,1,0
+210,angamaly,Senior Civil Police Officer,12,10,2
+208,angamaly,Sub Inspector Of Police,4,2,2
+212,angamaly,Woman Civil Police Officer,6,3,3
+211,angamaly,Woman Senior Civil Police Officer,1,1,0
+48,cheranelloor,Assistant Sub Inspector of Police,2,1,1
+51,cheranelloor,Civil Police Officer,24,23,1
+46,cheranelloor,Inspector Of Police,1,1,0
+49,cheranelloor,Senior Civil Police Officer,6,6,0
+47,cheranelloor,Sub Inspector Of Police,1,1,0
+50,cheranelloor,Woman Civil Police Officer,6,6,0
+142,chottanikkara,Assistant Sub Inspector of Police,1,3,0
+144,chottanikkara,Civil Police Officer,8,8,0
+140,chottanikkara,Inspector Of Police,1,0,1
+146,chottanikkara,Part Time Sweeper,1,1,0
+143,chottanikkara,Senior Civil Police Officer,6,6,0
+141,chottanikkara,Sub Inspector Of Police,2,3,0
+145,chottanikkara,Woman Civil Police Officer,4,5,0
+54,elamakkara,Assistant Sub Inspector of Police,2,1,1
+57,elamakkara,Civil Police Officer,14,16,0
+52,elamakkara,Inspector Of Police,1,1,0
+55,elamakkara,Senior Civil Police Officer,7,7,0
+53,elamakkara,Sub Inspector Of Police,1,1,0
+56,elamakkara,Woman Civil Police Officer,7,3,4
+3,ernakulamcentral,Assistant Sub Inspector of Police,5,4,1
+7,ernakulamcentral,Civil Police Officer,111,111,0
+1,ernakulamcentral,Inspector Of Police,1,1,0
+5,ernakulamcentral,Senior Civil Police Officer,35,30,5
+2,ernakulamcentral,Sub Inspector Of Police,7,6,1
+6,ernakulamcentral,Woman Civil Police Officer,12,6,6
+4,ernakulamcentral,Woman Senior Civil Police Officer,1,1,0
+184,ernakulamcitycyber,Assistant Sub Inspector of Police,1,0,1
+186,ernakulamcitycyber,Civil Police Officer,11,11,0
+187,ernakulamcitycyber,Driver Civil Police Officer,1,0,1
+183,ernakulamcitycyber,Inspector Of Police,1,1,0
+185,ernakulamcitycyber,Senior Civil Police Officer,4,4,0
+189,ernakulamcityvanitha,Woman Assistant Sub Inspector Of Police,0,0,0
+191,ernakulamcityvanitha,Woman Civil Police Officer,18,15,3
+190,ernakulamcityvanitha,Woman Senior Civil Police Officer,4,0,4
+188,ernakulamcityvanitha,Woman Sub Inspector Of Police,2,2,0
+247,ernakulamrailway,Assistant Sub Inspector of Police,2,2,0
+249,ernakulamrailway,Civil Police Officer,72,73,0
+248,ernakulamrailway,Senior Civil Police Officer,12,10,2
+246,ernakulamrailway,Sub Inspector Of Police,2,2,0
+250,ernakulamrailway,Woman Civil Police Officer,3,3,0
+16,ernakulamtownnorth,Assistant Sub Inspector of Police,3,2,1
+18,ernakulamtownnorth,Civil Police Officer,37,32,5
+14,ernakulamtownnorth,Inspector Of Police,1,1,0
+17,ernakulamtownnorth,Senior Civil Police Officer,14,14,0
+15,ernakulamtownnorth,Sub Inspector Of Police,4,2,2
+19,ernakulamtownnorth,Woman Civil Police Officer,8,4,4
+10,ernakulamtownsouth,Assistant Sub Inspector of Police,3,3,0
+12,ernakulamtownsouth,Civil Police Officer,28,28,0
+8,ernakulamtownsouth,Inspector Of Police,1,1,0
+11,ernakulamtownsouth,Senior Civil Police Officer,13,9,4
+9,ernakulamtownsouth,Sub Inspector Of Police,3,3,0
+13,ernakulamtownsouth,Woman Civil Police Officer,7,7,0
+73,fortkochi,Assistant Sub Inspector of Police,2,1,1
+76,fortkochi,Civil Police Officer,49,42,7
+71,fortkochi,Inspector Of Police,1,1,0
+78,fortkochi,Part Time Sweeper,1,1,0
+74,fortkochi,Senior Civil Police Officer,14,13,1
+72,fortkochi,Sub Inspector Of Police,2,2,0
+77,fortkochi,Woman Civil Police Officer,7,7,0
+75,fortkochi,Woman Senior Civil Police Officer,1,0,1
+164,fortkochicoastal,Assistant Sub Inspector of Police,0,0,0
+166,fortkochicoastal,Civil Police Officer,28,28,0
+162,fortkochicoastal,Inspector Of Police,1,1,0
+165,fortkochicoastal,Senior Civil Police Officer,9,9,0
+163,fortkochicoastal,Sub Inspector Of Police,3,1,2
+167,fortkochicoastal,Woman Civil Police Officer,6,2,4
+99,harbourekmc,Assistant Sub Inspector of Police,3,3,0
+101,harbourekmc,Civil Police Officer,34,33,1
+97,harbourekmc,Inspector Of Police,1,0,1
+100,harbourekmc,Senior Civil Police Officer,8,8,0
+98,harbourekmc,Sub Inspector Of Police,1,1,0
+102,harbourekmc,Woman Civil Police Officer,7,6,1
+129,hillpalace,Assistant Sub Inspector of Police,2,2,0
+133,hillpalace,Civil Police Officer,35,35,0
+127,hillpalace,Inspector Of Police,1,0,1
+131,hillpalace,Senior Civil Police Officer,12,11,1
+128,hillpalace,Sub Inspector Of Police,2,2,0
+132,hillpalace,Woman Civil Police Officer,10,4,6
+130,hillpalace,Woman Senior Civil Police Officer,1,0,1
+120,infoparkekmc,Assistant Sub Inspector of Police,3,3,0
+124,infoparkekmc,Civil Police Officer,30,32,0
+122,infoparkekmc,Driver Senior Civil Police Officer,1,1,0
+118,infoparkekmc,Inspector Of Police,1,1,0
+126,infoparkekmc,Part Time Sweeper,2,1,1
+121,infoparkekmc,Senior Civil Police Officer,10,9,1
+119,infoparkekmc,Sub Inspector Of Police,3,3,0
+125,infoparkekmc,Woman Civil Police Officer,7,3,4
+123,infoparkekmc,Woman Senior Civil Police Officer,0,0,0
+22,kadavanthra,Assistant Sub Inspector of Police,2,1,1
+26,kadavanthra,Civil Police Officer,34,34,0
+20,kadavanthra,Inspector Of Police,1,1,0
+24,kadavanthra,Senior Civil Police Officer,9,8,1
+21,kadavanthra,Sub Inspector Of Police,2,1,1
+25,kadavanthra,Woman Civil Police Officer,7,6,1
+23,kadavanthra,Woman Senior Civil Police Officer,0,0,0
+113,kalamassery,Assistant Sub Inspector of Police,2,2,0
+117,kalamassery,Civil Police Officer,45,39,6
+111,kalamassery,Inspector Of Police,1,1,0
+115,kalamassery,Senior Civil Police Officer,15,15,0
+112,kalamassery,Sub Inspector Of Police,5,5,0
+116,kalamassery,Woman Civil Police Officer,7,5,2
+114,kalamassery,Woman Senior Civil Police Officer,0,0,0
+87,kannamali,Assistant Sub Inspector of Police,1,0,1
+90,kannamali,Civil Police Officer,24,25,0
+85,kannamali,Inspector Of Police,1,1,0
+88,kannamali,Senior Civil Police Officer,7,3,4
+86,kannamali,Sub Inspector Of Police,2,1,1
+89,kannamali,Woman Civil Police Officer,7,6,1
+157,kochimetro,Assistant Sub Inspector of Police,3,3,0
+159,kochimetro,Civil Police Officer,5,3,2
+154,kochimetro,Inspector Of Police,1,1,0
+161,kochimetro,Part Time Sweeper,1,1,0
+158,kochimetro,Senior Civil Police Officer,3,4,0
+155,kochimetro,Sub Inspector Of Police,2,2,0
+156,kochimetro,Woman Assistant Sub Inspector Of Police,3,0,3
+160,kochimetro,Woman Civil Police Officer,6,6,0
+225,kothamangalam,Assistant Sub Inspector of Police,3,3,0
+229,kothamangalam,Civil Police Officer,27,26,1
+223,kothamangalam,Inspector Of Police,1,1,0
+230,kothamangalam,Part Time Sweeper,1,1,0
+227,kothamangalam,Senior Civil Police Officer,13,14,0
+224,kothamangalam,Sub Inspector Of Police,4,3,1
+228,kothamangalam,Woman Civil Police Officer,11,9,2
+226,kothamangalam,Woman Senior Civil Police Officer,1,0,1
+41,maradu,Assistant Sub Inspector of Police,4,4,0
+45,maradu,Civil Police Officer,33,35,0
+39,maradu,Inspector Of Police,1,1,0
+42,maradu,Senior Civil Police Officer,10,8,2
+40,maradu,Sub Inspector Of Police,3,2,1
+44,maradu,Woman Civil Police Officer,12,7,5
+43,maradu,Woman Senior Civil Police Officer,1,0,1
+66,mattancherry,Assistant Sub Inspector of Police,3,3,0
+70,mattancherry,Civil Police Officer,50,49,1
+64,mattancherry,Inspector Of Police,1,1,0
+68,mattancherry,Senior Civil Police Officer,12,13,0
+65,mattancherry,Sub Inspector Of Police,2,1,1
+69,mattancherry,Woman Civil Police Officer,7,4,3
+67,mattancherry,Woman Senior Civil Police Officer,0,2,0
+29,mulavukadu,Assistant Sub Inspector of Police,1,1,0
+31,mulavukadu,Civil Police Officer,24,25,0
+27,mulavukadu,Inspector Of Police,1,1,0
+30,mulavukadu,Senior Civil Police Officer,8,7,1
+28,mulavukadu,Sub Inspector Of Police,2,2,0
+32,mulavukadu,Woman Civil Police Officer,7,5,2
+60,palarivattom,Assistant Sub Inspector of Police,3,3,0
+62,palarivattom,Civil Police Officer,38,39,0
+58,palarivattom,Inspector Of Police,1,1,0
+61,palarivattom,Senior Civil Police Officer,14,11,3
+59,palarivattom,Sub Inspector Of Police,4,4,0
+63,palarivattom,Woman Civil Police Officer,8,3,5
+81,palluruthy,Assistant Sub Inspector of Police,3,3,0
+84,palluruthy,Civil Police Officer,40,37,3
+79,palluruthy,Inspector Of Police,1,1,0
+82,palluruthy,Senior Civil Police Officer,12,12,0
+80,palluruthy,Sub Inspector Of Police,3,2,1
+83,palluruthy,Woman Civil Police Officer,8,7,1
+35,panangad,Assistant Sub Inspector of Police,2,2,0
+38,panangad,Civil Police Officer,28,32,0
+33,panangad,Inspector Of Police,1,0,1
+36,panangad,Senior Civil Police Officer,8,5,3
+34,panangad,Sub Inspector Of Police,2,1,1
+37,panangad,Woman Civil Police Officer,5,8,0
+217,perumbavoor,Assistant Sub Inspector of Police,4,4,0
+221,perumbavoor,Civil Police Officer,25,23,2
+215,perumbavoor,Inspector Of Police,1,1,0
+222,perumbavoor,Part Time Sweeper,1,1,0
+219,perumbavoor,Senior Civil Police Officer,14,14,0
+216,perumbavoor,Sub Inspector Of Police,4,3,1
+220,perumbavoor,Woman Civil Police Officer,11,5,6
+218,perumbavoor,Woman Senior Civil Police Officer,1,0,1
+233,piravom,Assistant Sub Inspector of Police,3,3,0
+237,piravom,Civil Police Officer,24,24,0
+231,piravom,Inspector Of Police,1,1,0
+238,piravom,Part Time Sweeper,0,1,0
+235,piravom,Senior Civil Police Officer,8,8,0
+232,piravom,Sub Inspector Of Police,2,2,0
+236,piravom,Woman Civil Police Officer,6,7,0
+234,piravom,Woman Senior Civil Police Officer,1,0,1
+93,thoppumpady,Assistant Sub Inspector of Police,2,1,1
+95,thoppumpady,Civil Police Officer,42,42,0
+91,thoppumpady,Inspector Of Police,1,1,0
+94,thoppumpady,Senior Civil Police Officer,12,9,3
+92,thoppumpady,Sub Inspector Of Police,2,2,0
+96,thoppumpady,Woman Civil Police Officer,7,3,4
+105,thrikkakara,Assistant Sub Inspector of Police,2,2,0
+109,thrikkakara,Civil Police Officer,28,29,0
+103,thrikkakara,Inspector Of Police,1,1,0
+110,thrikkakara,Part Time Sweeper,1,1,0
+107,thrikkakara,Senior Civil Police Officer,12,10,2
+104,thrikkakara,Sub Inspector Of Police,2,3,0
+108,thrikkakara,Woman Civil Police Officer,7,6,1
+106,thrikkakara,Woman Senior Civil Police Officer,0,0,0
+178,trafficeastekmc,Assistant Sub Inspector of Police,4,3,1
+181,trafficeastekmc,Civil Police Officer,82,90,0
+175,trafficeastekmc,Inspector Of Police,1,1,0
+180,trafficeastekmc,Senior Civil Police Officer,35,36,0
+177,trafficeastekmc,Sub Inspector Of Police,14,16,0
+182,trafficeastekmc,Woman Civil Police Officer,15,6,9
+179,trafficeastekmc,Woman Senior Civil Police Officer,3,0,3
+176,trafficeastekmc,Woman Sub Inspector Of Police,2,0,2
+171,trafficwestekmc,Assistant Sub Inspector of Police,5,5,0
+173,trafficwestekmc,Civil Police Officer,113,108,5
+168,trafficwestekmc,Inspector Of Police,1,1,0
+172,trafficwestekmc,Senior Civil Police Officer,30,32,0
+169,trafficwestekmc,Sub Inspector Of Police,14,9,5
+174,trafficwestekmc,Woman Civil Police Officer,7,10,0
+170,trafficwestekmc,Woman Sub Inspector Of Police,0,1,0
+149,udayamperoor,Assistant Sub Inspector of Police,1,1,0
+153,udayamperoor,Civil Police Officer,23,23,0
+147,udayamperoor,Inspector Of Police,1,1,0
+151,udayamperoor,Senior Civil Police Officer,6,6,0
+148,udayamperoor,Sub Inspector Of Police,1,1,0
+152,udayamperoor,Woman Civil Police Officer,7,7,0
+150,udayamperoor,Woman Senior Civil Police Officer,0,0,0
+241,varapuzha,Assistant Sub Inspector of Police,2,2,0
+243,varapuzha,Civil Police Officer,24,18,6
+239,varapuzha,Inspector Of Police,1,0,1
+245,varapuzha,Part Time Sweeper,1,1,0
+242,varapuzha,Senior Civil Police Officer,7,6,1
+240,varapuzha,Sub Inspector Of Police,2,1,1
+244,varapuzha,Woman Civil Police Officer,5,2,3

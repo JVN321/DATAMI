@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Title -->
+    <title>Piravom PS</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="https://ps.keralapolice.gov.in/public/favicon.ico">
+    <!-- Stylesheets -->
+    <link href="https://ps.keralapolice.gov.in/public/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://ps.keralapolice.gov.in/public/libs/validator/css/bootstrapValidator.min.css">
+    <link href="https://ps.keralapolice.gov.in/public/web/css/fontello.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/css/flexslider.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/css/owl.carousel.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/font/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/css/rating.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/js/select/css/select2.min.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/js/select/css/select2-bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/plugins/leaflet/leaflet.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/js/toggle/css/bootstrap-toggle.min.css" rel="stylesheet" type="text/css">
+    <link href="https://ps.keralapolice.gov.in/public/web/css/style.css" rel="stylesheet" type="text/css">
+
+    <!--[if IE 9]>
+                <link rel="stylesheet" href="https://ps.keralapolice.gov.in/public/web/css/ie9.css">
+        <![endif]-->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+                <link href="https://ps.keralapolice.gov.in/public/web/css/jackbox-ie8.css" rel="stylesheet" type="text/css" />
+                <link rel="stylesheet" href="https://ps.keralapolice.gov.in/public/web/css/ie.css">
+<![endif]-->
+
+    <!--[if gt IE 8]>
+                <link href="https://ps.keralapolice.gov.in/public/web/css/jackbox-ie9.css" rel="stylesheet" type="text/css" />
+        <![endif]-->
+
+    <!--[if IE 7]>
+                <link rel="stylesheet" href="https://ps.keralapolice.gov.in/public/web/css/fontello-ie7.css">
+        <![endif]-->
+
+    <style type="text/css">
+        .no-fouc {
+            display: none;
+        }
+    </style>
+    <script src="https://ps.keralapolice.gov.in/public/web/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">
+        $('html').addClass('no-fouc');
+        $(document).ready(function() {
+
+            $('html').show();
+
+            var window_w = $(window).width();
+            var window_h = $(window).height();
+            var window_s = $(window).scrollTop();
+
+            $("body").queryLoader2({
+                backgroundColor: '#f2f4f9',
+                barColor: '#63b2f5',
+                barHeight: 4,
+                percentage: true,
+                deepSearch: false,
+                minimumTime: 100,
+                onComplete: function() {
+
+                    $('.animate-onscroll').filter(function(index) {
+
+                        return this.offsetTop < (window_s + window_h);
+
+                    }).each(function(index, value) {
+
+                        var el = $(this);
+                        var el_y = $(this).offset().top;
+
+                        if ((window_s) > el_y) {
+                            $(el).addClass('animated fadeInDown').removeClass('animate-onscroll');
+                            setTimeout(function() {
+                                $(el).css('opacity', '1').removeClass('animated fadeInDown');
+                            }, 2000);
+                        }
+
+                    });
+
+                }
+            });
+
+        });
+    </script>
+
+</head>
+
+<body class="sticky-header-on tablet-sticky-header">
+    <div class="top-bar" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6 top-nav hidden-sm hidden-xs ">
+                    <ul>
+                        <li style="padding-left: 10px;"><img src="https://ps.keralapolice.gov.in/public/web/images/kerala.png" height="30px"> <span style="color:#ddd;padding-left: 10px;">Government of Kerala </span></li>
+
+                    </ul>
+                </div>
+                <div class="col-lg-6 col-md-6 top-nav col-xs-12 col-sm-12" style="text-align: right">
+                    <ul>
+                        <li>
+
+                            <a href="#" id="btn-decrease" class="btn btn-xs " title="Decrease font size">A-</a>
+                            <a href="#" id="btn-orig" class="btn btn-xs " title="Default font size">A</a>
+                            <a href="#" id="btn-increase" class="btn btn-xs " title="Increase font size">A+</a>
+
+                        </li>
+                        <li> <a title="Back to landing page" href="https://ps.keralapolice.gov.in/" class="btn btn-xs ">Skip to Main</a></li>
+                        <li>
+
+                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div><!-- Container -->
+<div class="container" id="smoke" class="animate-onscroll">
+    <!-- Header -->
+    <header id="header" class="header">
+        <!-- Main Header -->
+        <div id="main-header">
+
+            <div class="container">
+
+                <div class="row">
+                    <!-- Logo -->
+                    <div id="logo" class="col-lg-8 col-md-8 col-sm-8 ">
+                        <div class="row">
+                            <div id="logo" class="col-lg-2 col-sm-2 col-md-2 "><div ><a href="https://ps.keralapolice.gov.in/piravom-ps"><img src="https://ps.keralapolice.gov.in/public/web/images/logo/ekmrl.png" alt="Logo" class="responsive"></a></div></div>
+                            <div class="col-lg-10 col-sm-10 col-md-10 "><div class="ps-heading">
+                                    <ul>
+                                        <li class="ps-official">Official Website of</li>
+                                        <li class="ps-name">Piravom Police Station</li>
+                                        <li class="dist-name">Ernakulam Rural</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>                                                                
+                    </div>
+
+                    <!-- /Logo -->
+
+                    <div class="col-lg-4 col-md-4 col-sm-4" >
+                        <form id="search" action="php/search-form.php" method="POST">
+                            <h5><strong>SEARCH</strong> your Police Station</h5>
+                            <div class="form-group">                                       
+                                <select class="form-control" name="state" id="search-ps" placeholder = "">
+                                    <option></option>
+                                </select>
+                            </div>
+                        </form>  
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!-- /Main Header -->
+        <!-- Lower Header -->
+        <div id="lower-header" >
+
+            <div class="container">
+
+                <div id="menu-button">
+                    <div>
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                    <span>Menu</span>
+                </div>
+                                <ul id="navigation" >
+                    <li class="home-button ">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps"><i class="icons icon-home"></i></a>
+                    </li>
+                    <li class="">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/about">ABOUT</a>
+                    </li>
+                    <li class="">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/good-works">GOOD WORKS</a>
+                    </li>
+                    <li class="">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/notifications">NOTIFICATIONS</a>
+                    </li>
+                    <li class="">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/contacts">CONTACTS</a>
+                    </li>
+                    <li class="current-menu-item">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/crime-statistics">CRIME STATISTICS</a>
+                    </li>
+                    <li class="">
+                        <a href="https://ps.keralapolice.gov.in/piravom-ps/staff-strength">STAFF STRENGTH</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- /Lower Header -->
+    </header>
+    <!-- /Header --><section id="content">
+
+    <!-- Page Heading -->
+    <section class="section page-heading">
+
+        <h1>CRIME STATISTICS</h1>
+        <p class="breadcrumb"><a href="https://ps.keralapolice.gov.in/piravom-ps">Home</a> / CRIME STATISTICS</p>
+
+    </section>
+    <!-- Page Heading -->
+
+    <!-- Section -->
+    <section class="section full-width-bg gray-bg">
+        <div class="row">
+            <div class="col-lg-9 col-md-9 col-sm-8">
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h3 class=" no-margin-top"> Cases Registered in Piravom Police Station</h3>
+                        <table id="ipc_sll_tbl" class="table-responsive table-striped">
+                            <thead>
+                                <tr style="font-weight: bold;" class="bg-primary">
+                                    <td>Year</td>
+                                    <td>Indian Penal Code</td>
+                                    <td>Special and Local laws</td>
+                                    <td>Total</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td class="text-bold">2016</td>
+                                        <td>352</td>
+                                        <td>1091</td>
+                                        <td><span class="text-bold">1443</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2017</td>
+                                        <td>512</td>
+                                        <td>616</td>
+                                        <td><span class="text-bold">1128</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2018</td>
+                                        <td>514</td>
+                                        <td>619</td>
+                                        <td><span class="text-bold">1133</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2019</td>
+                                        <td>594</td>
+                                        <td>985</td>
+                                        <td><span class="text-bold">1579</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2020</td>
+                                        <td>70</td>
+                                        <td>4</td>
+                                        <td><span class="text-bold">74</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2021</td>
+                                        <td>490</td>
+                                        <td>3</td>
+                                        <td><span class="text-bold">493</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2022</td>
+                                        <td>769</td>
+                                        <td>30</td>
+                                        <td><span class="text-bold">799</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2023</td>
+                                        <td>54</td>
+                                        <td>78</td>
+                                        <td><span class="text-bold">132</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2024</td>
+                                        <td>73</td>
+                                        <td>86</td>
+                                        <td><span class="text-bold">159</span></td>
+                                    </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">2025</td>
+                                        <td>101</td>
+                                        <td>1183</td>
+                                        <td><span class="text-bold">1284</span></td>
+                                    </tr>
+
+                                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                        <h3 class=" no-margin-top">Cases registered under IPC in Piravom Police Station</h3>
+                        <table id="ipc_sll_tbl" class="table-responsive table-striped">
+                            <thead>
+                                <tr style="font-weight: bold;" class="bg-primary">
+                                    <td>Crime Head</td>
+                                                                            <td>2016</td>
+                                                                            <td>2017</td>
+                                                                            <td>2018</td>
+                                                                            <td>2019</td>
+                                                                            <td>2020</td>
+                                                                            <td>2021</td>
+                                                                            <td>2022</td>
+                                                                            <td>2023</td>
+                                                                            <td>2024</td>
+                                                                            <td>2025</td>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td class="text-bold">CH not amounting to murder</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Theft - Auto theft</td>
+                                                                                    <td>5</td>
+                                                                                    <td>3</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>10</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Molestation</td>
+                                                                                    <td>7</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>12</td>
+                                                                                    <td>16</td>
+                                                                                    <td>3</td>
+                                                                                    <td>5</td>
+                                                                                    <td>6</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Kidnapping & abduction - of others</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Cheating</td>
+                                                                                    <td>8</td>
+                                                                                    <td>10</td>
+                                                                                    <td>10</td>
+                                                                                    <td>8</td>
+                                                                                    <td>9</td>
+                                                                                    <td>13</td>
+                                                                                    <td>7</td>
+                                                                                    <td>9</td>
+                                                                                    <td>20</td>
+                                                                                    <td>26</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Attempt to commit murder</td>
+                                                                                    <td>1</td>
+                                                                                    <td>5</td>
+                                                                                    <td>2</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>2</td>
+                                                                                    <td>2</td>
+                                                                                    <td>2</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Theft</td>
+                                                                                    <td>0</td>
+                                                                                    <td>6</td>
+                                                                                    <td>5</td>
+                                                                                    <td>4</td>
+                                                                                    <td>2</td>
+                                                                                    <td>2</td>
+                                                                                    <td>1</td>
+                                                                                    <td>4</td>
+                                                                                    <td>1</td>
+                                                                                    <td>8</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Dowry Deaths(304(B) IPC)</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Kidnapping & abduction -  of women & girls</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Criminal breach of trust</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Other IPC Crimes</td>
+                                                                                    <td>314</td>
+                                                                                    <td>440</td>
+                                                                                    <td>450</td>
+                                                                                    <td>528</td>
+                                                                                    <td>0</td>
+                                                                                    <td>422</td>
+                                                                                    <td>686</td>
+                                                                                    <td>8</td>
+                                                                                    <td>1</td>
+                                                                                    <td>20</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Murder</td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>2</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Burglary</td>
+                                                                                    <td>5</td>
+                                                                                    <td>4</td>
+                                                                                    <td>7</td>
+                                                                                    <td>4</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>7</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Hurt</td>
+                                                                                    <td>5</td>
+                                                                                    <td>24</td>
+                                                                                    <td>21</td>
+                                                                                    <td>16</td>
+                                                                                    <td>17</td>
+                                                                                    <td>20</td>
+                                                                                    <td>38</td>
+                                                                                    <td>16</td>
+                                                                                    <td>27</td>
+                                                                                    <td>28</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Kidnapping & abduction</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Riots</td>
+                                                                                    <td>6</td>
+                                                                                    <td>15</td>
+                                                                                    <td>8</td>
+                                                                                    <td>22</td>
+                                                                                    <td>23</td>
+                                                                                    <td>11</td>
+                                                                                    <td>9</td>
+                                                                                    <td>3</td>
+                                                                                    <td>6</td>
+                                                                                    <td>1</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Cruelty by husband or relatives</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>4</td>
+                                                                                    <td>3</td>
+                                                                                    <td>4</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>6</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Robbery</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>2</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Arson</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Rape</td>
+                                                                                    <td>3</td>
+                                                                                    <td>1</td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
+                                                                                    <td>0</td>
+                                                                                    <td>3</td>
+                                                                                    <td>2</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Theft - Other theft</td>
+                                                                                    <td>2</td>
+                                                                                    <td>3</td>
+                                                                                    <td>5</td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>3</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Sexual harassment</td>
+                                                                                    <td>1</td>
+                                                                                    <td>4</td>
+                                                                                    <td>6</td>
+                                                                                    <td>8</td>
+                                                                                    <td>14</td>
+                                                                                    <td>1</td>
+                                                                                    <td>2</td>
+                                                                                    <td>4</td>
+                                                                                    <td>3</td>
+                                                                                    <td>3</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Dacoity</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Counterfeiting</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="divider"></div>
+                <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                    <h3 class=" no-margin-top">Cases registered under SLL in Piravom Police Station</h3>
+                        <table id="ipc_sll_tbl" class="table-responsive table-striped">
+                            <thead>
+                                <tr style="font-weight: bold;" class="bg-primary">
+                                    <td>Crime Head</td>
+                                                                            <td>2016</td>
+                                                                            <td>2017</td>
+                                                                            <td>2018</td>
+                                                                            <td>2019</td>
+                                                                            <td>2020</td>
+                                                                            <td>2021</td>
+                                                                            <td>2022</td>
+                                                                            <td>2023</td>
+                                                                            <td>2024</td>
+                                                                            <td>2025</td>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                                                    <tr>
+                                        <td class="text-bold">Gambling Act</td>
+                                                                                    <td>6</td>
+                                                                                    <td>1</td>
+                                                                                    <td>2</td>
+                                                                                    <td>4</td>
+                                                                                    <td>4</td>
+                                                                                    <td>2</td>
+                                                                                    <td>2</td>
+                                                                                    <td>3</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Antiquity and art treasure Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Railways Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">SC /ST (POA) Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>6</td>
+                                                                                    <td>3</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>3</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">NDPS Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>12</td>
+                                                                                    <td>13</td>
+                                                                                    <td>23</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>25</td>
+                                                                                    <td>17</td>
+                                                                                    <td>48</td>
+                                                                                    <td>62</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Essential Commodities Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Immoral Traffic (P) Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Indecent representation of women Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>14</td>
+                                                                                    <td>16</td>
+                                                                                    <td>20</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Arms Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Indian Passport Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Explosive & Explosive substance Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Child marriage restraint Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Protection of Civil Rights Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Other SLL Crimes</td>
+                                                                                    <td>928</td>
+                                                                                    <td>510</td>
+                                                                                    <td>528</td>
+                                                                                    <td>882</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>58</td>
+                                                                                    <td>37</td>
+                                                                                    <td>1121</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Prohibition Act</td>
+                                                                                    <td>157</td>
+                                                                                    <td>73</td>
+                                                                                    <td>56</td>
+                                                                                    <td>54</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Dowry Prohibition Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Registration of foreigners Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>1</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                                    <tr>
+                                        <td class="text-bold">Forest Act</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                                    <td>0</td>
+                                                                            </tr>
+
+                                                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div><!-- Sidebar -->
+<div class="col-lg-3 col-md-3 col-sm-12 sidebar">
+
+    
+<div class="sidebar-box white">
+        <h3>CALL IN EMERGENCY</h3>
+        <div class="img-thumbnail" >
+        <a href="https://112.gov.in/" target="_blank"  > <img src="https://ps.keralapolice.gov.in/public/web/images/112_eng.png" ></a>
+        </div>
+        
+    </div>
+    <div class="sidebar-box white">
+
+        <div class="img-thumbnail" style="margin-bottom: 10px;" >
+            <a href="https://www.india.gov.in/" target="_blank"  ><img src="https://ps.keralapolice.gov.in/public/web/images/india_gov_in.jpg" ></a>
+        </div>
+        <div class="img-thumbnail" style="margin-bottom: 10px;" >
+        <a href="https://www.kerala.gov.in/" target="_blank" ><img src="https://ps.keralapolice.gov.in/public/web/images/kerala_gov_in.jpg" ></a>
+        </div>
+        <div class="img-thumbnail" style="margin-bottom: 10px;" >
+        <a href="https://keralapolice.gov.in/" target="_blank" ><img src="https://ps.keralapolice.gov.in/public/web/images/keralapolice_gov_in_2.png" ></a>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- /Sidebar -->
+</div>
+</section>
+<!-- /Section -->
+</section><!-- Footer -->
+<footer id="footer">
+    <!-- Main Footer -->
+    <div id="main-footer">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 ">
+                <h5>Other Police Stations in the District</h5>
+            </div>
+        </div>
+        <div class="row">
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/aluvaeast-ps" class="footer-link" >Aluva East</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/aluvawest-ps" class="footer-link" >Aluva West</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/angamaly-ps" class="footer-link" >Angamaly</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/ayyampuzha-ps" class="footer-link" >Ayyampuzha</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/binanipuram-ps" class="footer-link" >Binanipuram</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/chengamanadu-ps" class="footer-link" >Chengamanadu</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/chottanikkara-ps" class="footer-link" >Chottanikkara</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/edathala-ps" class="footer-link" >Edathala</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/ernakulamruralcyber-ps" class="footer-link" >ERNAKULAM RURAL CYBER</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kalady-ps" class="footer-link" >Kalady</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/Kalloorkad-ps" class="footer-link" >Kalloorkad</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kodanadu-ps" class="footer-link" >Kodanadu</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/koothattukulam-ps" class="footer-link" >Koothattukulam</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kothamangalam-ps" class="footer-link" >Kothamangalam</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kottappady-ps" class="footer-link" >Kottappady</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kunnathunadu-ps" class="footer-link" >Kunnathunadu</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kuruppampady-ps" class="footer-link" >Kuruppampady</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/kuttampuzha-ps" class="footer-link" >Kuttampuzha</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/mulanthuruthy-ps" class="footer-link" >Mulanthuruthy</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/munambam-ps" class="footer-link" >Munambam</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/muvattupuzha-ps" class="footer-link" >Muvattupuzha</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/nedumbassery-ps" class="footer-link" >Nedumbassery</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/njarakkal-ps" class="footer-link" >Njarakkal</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/northparavoor-ps" class="footer-link" >North Paravoor</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/oonnukal-ps" class="footer-link" >Oonnukal</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/perumbavoor-ps" class="footer-link" >Perumbavoor</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/pothanikad-ps" class="footer-link" >Pothanikad</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/puthencruz-ps" class="footer-link" >Puthencruz</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/puthenvelikkara-ps" class="footer-link" >Puthenvelikkara</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/ramamangalam-ps" class="footer-link" >Ramamangalam</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/thadiyittaparambu-ps" class="footer-link" >Thadiyittaparambu</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/vadakkekara-ps" class="footer-link" >Vadakkekara</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/varapuzha-ps" class="footer-link" >Varapuzha</a>
+                        
+                    </div>
+                                <div class="col-lg-3 col-md-3 col-sm-6 ">
+                        
+                        <a href="https://ps.keralapolice.gov.in/vazhakulam-ps" class="footer-link" >Vazhakulam</a>
+                        
+                    </div>
+            
+        </div>
+    </div>
+
+    <!-- /Main Footer -->
+    <!-- Lower Footer -->
+    <div id="lower-footer">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 ">
+                <p class="copyright">Website developed by ICT, State Crime Records Bureau, Kerala Police</p>
+            </div>
+            
+        </div>
+    </div>
+    <!-- /Lower Footer -->
+</footer>
+<!-- /Footer -->
+<!-- Back To Top -->
+<a href="#" id="button-to-top"><i class="icons icon-up-dir"></i></a>
+</div>
+<!-- /Container --><!-- JavaScript -->
+<!-- Bootstrap -->
+<!-- jQuery -->
+<script>
+    var base_url = 'https://ps.keralapolice.gov.in/';
+</script>
+<script src="https://ps.keralapolice.gov.in/public/web/js/jquery-ui-1.10.4.min.js"></script>
+<!-- Preloader -->
+<script src="https://ps.keralapolice.gov.in/public/web/js/jquery.queryloader2.min.js"></script>
+
+<script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/bootstrap.min.js"></script>
+<!-- Modernizr -->
+<script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/modernizr.js"></script>
+<!-- Sliders/Carousels -->
+<script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/jquery.flexslider-min.js"></script>
+<script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/owl.carousel.min.js"></script>
+<!-- Revolution Slider  -->
+
+<script language="javascript" src="https://ps.keralapolice.gov.in/public/web/js/select/js/select2.min.js"></script>
+<script src="https://ps.keralapolice.gov.in/public/js/jquery.blockUI.js"></script>
+<!-- Main Script -->
+<script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/script.js"></script>
+<!--[if lt IE 9]>
+        <script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/jquery.placeholder.js"></script>
+        <script type="text/javascript" src="https://ps.keralapolice.gov.in/public/web/js/script_ie.js"></script>
+<![endif]-->
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        $('html').show();
+        var window_w = $(window).width();
+        var window_h = $(window).height();
+        var window_s = $(window).scrollTop();
+        $("body").queryLoader2({
+            backgroundColor: '#f2f4f9',
+            barColor: '#63b2f5',
+            barHeight: 4,
+            percentage: false,
+            deepSearch: true,
+            minimumTime: 1000,
+            onComplete: function() {
+
+                $("#").filter(function(index) {
+
+                    return this.offsetTop < (window_s + window_h);
+                }).each(function(index, value) {
+
+                    var el = $(this);
+                    var el_y = $(this).offset().top;
+                    if ((window_s) > el_y) {
+                        $(el).addClass('animated fadeInDown').removeClass('');
+                        setTimeout(function() {
+                            $(el).css('opacity', '1').removeClass('animated fadeInDown');
+                        }, 2000);
+                    }
+
+                });
+            }
+        });
+
+        /////////////////////////
+        // Bar chart
+
+
+
+        ////////////////////////
+
+
+        $('#search-ps').select2({
+            theme: 'bootstrap',
+            data: [{"text":"Achancovil","id":"achancovil"},{"text":"Adhur","id":"adhur"},{"text":"Adimali","id":"adimali"},{"text":"Adoor","id":"adoor"},{"text":"Agali","id":"agali"},{"text":"Alakode","id":"alakode"},{"text":"Alappuzha Cyber","id":"alappuzhacyber"},{"text":"Alappuzha North","id":"alappuzhanorth"},{"text":"Alappuzha Railway P S","id":"alappuzharailway"},{"text":"Alappuzha South","id":"alappuzhasouth"},{"text":"Alappuzha Traffic","id":"alappuzhatraffic"},{"text":"Alappuzha Vanitha","id":"alappuzhavanitha"},{"text":"Alathur","id":"alathur"},{"text":"Aloor","id":"aloor"},{"text":"Aluva East","id":"aluvaeast"},{"text":"Aluva West","id":"aluvawest"},{"text":"Ambalamedu","id":"ambalamedu"},{"text":"Ambalapuzha","id":"ambalapuzha"},{"text":"Ambalathara","id":"ambalathara"},{"text":"Ambalavayal","id":"ambalavayal"},{"text":"Anchal","id":"anchal"},{"text":"Anchalummoodu","id":"anchalumoodu"},{"text":"Anchuthengu","id":"anchuthengu"},{"text":"Anchuthengu Coastal","id":"anchuthengucoastal"},{"text":"Angamaly","id":"angamaly"},{"text":"Anthikad","id":"anthikad"},{"text":"Aralam","id":"aralam"},{"text":"Aranmula","id":"aranmula"},{"text":"Areekode","id":"areacode"},{"text":"Aroor","id":"aroor"},{"text":"Arthungal","id":"arthungal"},{"text":"Arthunkal Coastal","id":"coastalpsarthunkal"},{"text":"Aruvikkara","id":"aruvikkara"},{"text":"Aryanad","id":"aryanad"},{"text":"Aryancode","id":"aryancode"},{"text":"Athirappilly","id":"athirappilly"},{"text":"Atholi","id":"atholi"},{"text":"Attingal","id":"attingal"},{"text":"Ayarkunnam","id":"ayarkunnam"},{"text":"Ayiroor","id":"ayiroor"},{"text":"Ayyampuzha","id":"ayyampuzha"},{"text":"Azheekal Coastal","id":"azheekalcoastal"},{"text":"Azheekodu Coastal","id":"azheekoducoastal"},{"text":"Badiadka","id":"badiadka"},{"text":"Balaramapuram","id":"balaramapuram"},{"text":"Balussery","id":"balussery"},{"text":"Bedakam","id":"bedakam"},{"text":"Bekal","id":"bekal"},{"text":"Bekal Coastal","id":"bekalcoastal"},{"text":"Beypore","id":"beypore"},{"text":"Beypore Coastal","id":"beyporecoastal"},{"text":"Binanipuram","id":"binanipuram"},{"text":"Cantonment","id":"cantonment"},{"text":"Chadayamangalam","id":"chadayamangalam"},{"text":"Chakkarakkal","id":"chakkarakkal"},{"text":"Chalakkudy","id":"chalakudy"},{"text":"Chalissery","id":"chalissery"},{"text":"Chandera","id":"chandera"},{"text":"Changanacherry","id":"changanacherry"},{"text":"Changaramkulam","id":"changaramkulam"},{"text":"Chathannur","id":"chathannoor"},{"text":"Chavakkad","id":"chavakkad"},{"text":"Chavara","id":"chavara"},{"text":"Chavara Thekkumbhagam","id":"chavarathekkumbhagam"},{"text":"Cheemeni","id":"cheemeni"},{"text":"Chelakkara","id":"chelakara"},{"text":"Chemmangad","id":"chemmangad"},{"text":"Chengamanadu","id":"chengamanadu"},{"text":"Chengannur","id":"chengannur"},{"text":"Cheranelloor","id":"cheranelloor"},{"text":"Cherpu","id":"cherupu"},{"text":"Cherpulassery","id":"cherpulassery"},{"text":"Cherthala","id":"cherthala"},{"text":"Cherupuzha","id":"cherupuzha"},{"text":"Cheruthuruthy","id":"cheruthuruthy"},{"text":"Chevayur","id":"chevayur"},{"text":"Chingavanam","id":"chingavanam"},{"text":"Chirayinkeezhu","id":"chirayinkeezhu"},{"text":"Chithara","id":"chitharaps"},{"text":"Chittar","id":"chittar"},{"text":"Chittarikkal","id":"chittarikkal"},{"text":"Chittur","id":"chittur"},{"text":"Chockly","id":"chockly"},{"text":"Chompala","id":"chompala"},{"text":"Chottanikkara","id":"chottanikkara"},{"text":"Cumbummettu","id":"cumbummettu"},{"text":"Cyber Crime","id":"kollamruralcyber"},{"text":"Devikulam","id":"devikulam"},{"text":"Dharmadam","id":"dharmadam"},{"text":"East Kallda","id":"eastkallada"},{"text":"Edachery","id":"edachery"},{"text":"Edakkad","id":"edakkad"},{"text":"Edakkara","id":"edakkara"},{"text":"Edathala","id":"edathala"},{"text":"Edathua","id":"edathua"},{"text":"Edavanna","id":"edavanna"},{"text":"Elamakkara","id":"elamakkara"},{"text":"Elathur","id":"elathur"},{"text":"Elathur Coastal","id":"elathurcoastal"},{"text":"Elavumthitta","id":"elavumthitta"},{"text":"Eloor","id":"eloor"},{"text":"Enathu","id":"enathu"},{"text":"Erattupetta","id":"erattupetta"},{"text":"Eravipuram","id":"eravipuram"},{"text":"Ernakulam Central","id":"ernakulamcentral"},{"text":"Ernakulam City Cyber","id":"ernakulamcitycyber"},{"text":"Ernakulam City Vanitha","id":"ernakulamcityvanitha"},{"text":"Ernakulam Railway P S","id":"ernakulamrailway"},{"text":"Ernakulam Rural Cyber","id":"ernakulamruralcyber"},{"text":"Ernakulam Town  South","id":"ernakulamtownsouth"},{"text":"Ernakulam Town North","id":"ernakulamtownnorth"},{"text":"Ernakulam Traffic West","id":"trafficwestekmc"},{"text":"Erumapetty","id":"erumapetty"},{"text":"Erumely","id":"erumely"},{"text":"Ettumanoor","id":"ettumanoor"},{"text":"Ezhukone","id":"ezhukone"},{"text":"Feroke","id":"feroke"},{"text":"Fort","id":"fort"},{"text":"Fort Kochi","id":"fortkochi"},{"text":"Fort Kochi  Coastal","id":"fortkochicoastal"},{"text":"Gandhinagar","id":"gandhinagar"},{"text":"Guruvayoor","id":"guruvayoor"},{"text":"Guruvayoor  Temple","id":"guruvayoortemple"},{"text":"Harbour","id":"harbourekmc"},{"text":"Haripad","id":"haripad"},{"text":"Hemambika Nagar","id":"hemambikanagar"},{"text":"Hill Palace","id":"hillpalace"},{"text":"Hosdurg","id":"hosdurg"},{"text":"Idukki","id":"idukki"},{"text":"Idukki Cyber Crime","id":"idukkicyber"},{"text":"Idukki Vanitha","id":"idukkivanitha"},{"text":"Infopark","id":"infoparkekmc"},{"text":"Irikkur","id":"irikkur"},{"text":"Irinjalakuda","id":"irinjalakuda"},{"text":"Iritty","id":"iritty"},{"text":"Kadakkal","id":"kadakkal"},{"text":"Kadakkavoor","id":"kadakkavoor"},{"text":"Kadampuzha","id":"kadampuzha"},{"text":"Kadavanthra","id":"kadavanthra"},{"text":"Kadinamkulam","id":"kadinamkulam"},{"text":"Kaduthuruthy","id":"kaduthuruthy"},{"text":"Kainady","id":"kainady"},{"text":"Kaipamangalam","id":"kaipamangalam"},{"text":"Kakkur","id":"kakkur"},{"text":"Kalady","id":"kalady"},{"text":"Kalamassery","id":"kalamassery"},{"text":"Kalikavu","id":"kalikavu"},{"text":"Kaliyar","id":"kaliyar"},{"text":"Kalladikkode","id":"kalladikkode"},{"text":"Kallmbalam","id":"kallmbalam"},{"text":"Kalloorkad","id":"Kalloorkad"},{"text":"Kalpakanchery","id":"kalpakanchery"},{"text":"Kalpetta","id":"kalpetta"},{"text":"Kamblakkad","id":"kambalakkad"},{"text":"Kanakakunnu","id":"kanakakunnu"},{"text":"Kanjar","id":"kanjar"},{"text":"Kanjikuzhy","id":"kanjikuzhy"},{"text":"Kanjiramkulam","id":"kanjiramkulam"},{"text":"Kanjirappally","id":"kanjirappally"},{"text":"Kannamali","id":"kannamali"},{"text":"Kannanalloor","id":"kannanalloor"},{"text":"Kannapuram","id":"kannapuram"},{"text":"Kannavam","id":"kannavam"},{"text":"Kannur City","id":"kannurcity"},{"text":"Kannur Cyber","id":"kannurcyber"},{"text":"Kannur Railway P S","id":"kannurrailway"},{"text":"Kannur Town","id":"kannurtown"},{"text":"Kannur Traffic","id":"kannurtraffic"},{"text":"Kannur Vanitha","id":"kannurvanitha"},{"text":"Karamana","id":"karamana"},{"text":"Kareelakulangara","id":"kareelakulangara"},{"text":"Karikkottakari","id":"karikotakari"},{"text":"Karimanal","id":"karimanal"},{"text":"Karimannoor","id":"karimannoor"},{"text":"Karimkunnam","id":"karimkunnam"},{"text":"Karippur","id":"karippur"},{"text":"Karukachal","id":"karukachal"},{"text":"Karunagappally","id":"karunagappally"},{"text":"Karuvarakundu","id":"karuvarakundu"},{"text":"Kasaragod","id":"kasaragod"},{"text":"Kasaragod Cyber","id":"kasaragodcyber"},{"text":"Kasaragod Railway P S","id":"kasaragodrailway"},{"text":"Kasaragod Traffic","id":"traffic"},{"text":"Kathirur","id":"kathirur"},{"text":"Kattakada","id":"kattakada"},{"text":"Kattappana","id":"kattappana"},{"text":"Kattoor","id":"kattur"},{"text":"Kayamkulam","id":"kayamkulam"},{"text":"Kazhakkuttom","id":"kazhakuttom"},{"text":"Keezhvaipur","id":"keezhvaipur"},{"text":"Kelakam","id":"kelakam"},{"text":"Kenichira","id":"kenichira"},{"text":"Kidangoor","id":"kidangoor"},{"text":"Kilikolloor","id":"kilikolloor"},{"text":"Kilimanoor","id":"kilimanoor"},{"text":"Kochi Metro","id":"kochimetro"},{"text":"Kodakara","id":"kodakara"},{"text":"Kodanadu","id":"kodanadu"},{"text":"Kodenchery","id":"kodenchery"},{"text":"Kodumon","id":"kodumon"},{"text":"Kodungallur","id":"kodungallur"},{"text":"Koduvally","id":"koduvally"},{"text":"Koipuram","id":"koipuram"},{"text":"Kolathur","id":"kolathur"},{"text":"Kolavallur","id":"kolavallur"},{"text":"Kollam City Cyber","id":"kollamcitycyber"},{"text":"Kollam East","id":"kollameast"},{"text":"Kollam Railway","id":"kollamrailway"},{"text":"Kollam Traffic","id":"kollamtraffic"},{"text":"Kollam Vanitha","id":"kollamvanitha"},{"text":"Kollam West","id":"kollamwest"},{"text":"Kollengode","id":"kollengode"},{"text":"Kondotty","id":"kondotty"},{"text":"Kongad","id":"kongad"},{"text":"Konni","id":"konni"},{"text":"Koodal","id":"koodal"},{"text":"Koorachundu","id":"koorachundu"},{"text":"Koothattukulam","id":"koothattukulam"},{"text":"Koppam","id":"koppam"},{"text":"Koratty","id":"koratty"},{"text":"Kothamangalam","id":"kothamangalam"},{"text":"Kottakkal","id":"kottakkal"},{"text":"Kottappady","id":"kottappady"},{"text":"Kottarakkara","id":"kottarakkara"},{"text":"Kottayam Cyber","id":"kottayamcyber"},{"text":"Kottayam East","id":"kottayameast"},{"text":"Kottayam Railway P S","id":"kottayamrailway"},{"text":"Kottayam Traffic","id":"kottayamtraffic"},{"text":"Kottayam Vanitha","id":"kottayamvanitha"},{"text":"Kottayam West","id":"kottayamwest"},{"text":"Kottayi","id":"kottayi"},{"text":"Kottiyam","id":"kottiyam"},{"text":"Kovalam","id":"kovalam"},{"text":"Koyilandy","id":"koyilandy"},{"text":"Kozhikode City Cyber","id":"kozhikodecitycyber"},{"text":"Kozhikode City Kasaba","id":"kasabakkdc"},{"text":"Kozhikode City Medical College","id":"medicalcollegekkdc"},{"text":"Kozhikode City Town","id":"townkkdc"},{"text":"Kozhikode City Traffic","id":"traffickkdc"},{"text":"Kozhikode City Vanitha","id":"vanithakkdc"},{"text":"Kozhikode Railway P S","id":"kozhikoderailway"},{"text":"Kozhikode Rural Cyber","id":"kozhikoderuralcyber"},{"text":"Kozhinjampara","id":"kozhinjampara"},{"text":"Kudiyanmala","id":"kudiyanmala"},{"text":"Kulamavu","id":"kulamavu"},{"text":"Kulathupuzha","id":"kulathupuzha"},{"text":"Kumali","id":"kumali"},{"text":"Kumarakom","id":"kumarakom"},{"text":"Kumbla","id":"kumbla"},{"text":"Kumbla Coastal","id":"kumblacoastal"},{"text":"Kundara","id":"kundara"},{"text":"Kunnamangalam","id":"kunnamangalam"},{"text":"Kunnamkulam","id":"kunnamkulam"},{"text":"Kunnathunadu","id":"kunnathunadu"},{"text":"Kunnicode","id":"kunnicode"},{"text":"Kurathikad","id":"kurathikad"},{"text":"Kuravilangadu","id":"kuravilangadu"},{"text":"Kuruppampady","id":"kuruppampady"},{"text":"Kuthiathodu","id":"kuthiathodu"},{"text":"Kuthuparamba","id":"kuthuparamba"},{"text":"Kuttampuzha","id":"kuttampuzha"},{"text":"Kuttiady","id":"kuttiady"},{"text":"Kuttippuram","id":"kuttippuram"},{"text":"Kuzhalmannam","id":"kuzhalmannam"},{"text":"Mala","id":"mala"},{"text":"Malakkappara","id":"malakkappara"},{"text":"Malampuzha","id":"malampuzha"},{"text":"Malappuram","id":"malappuram"},{"text":"Malappuram Cyber Ps","id":"malappuramcyberps"},{"text":"Malappuram Vanitha","id":"malappuramvanitha"},{"text":"Malayalapuzha","id":"malayalapuzha"},{"text":"Malayinkeezhu","id":"malayinkeezhu"},{"text":"Maloor","id":"maloor"},{"text":"Mananthavdy","id":"mananthavady"},{"text":"Manarcadu","id":"manarcadu"},{"text":"Mangalam Dam","id":"mangalamdam"},{"text":"Mangalapuram","id":"mangalapuram"},{"text":"Manimala","id":"manimala"},{"text":"Manjeri","id":"manjeri"},{"text":"Manjeswar","id":"manjeswar"},{"text":"Mankada","id":"mankada"},{"text":"Mankara","id":"mankara"},{"text":"Mannanchery","id":"mannanchery"},{"text":"Mannanthala","id":"mannanthala"},{"text":"Mannar","id":"mannar"},{"text":"Mannarkkad","id":"mannarkkad"},{"text":"Mannarkkad Traffic","id":"mannarkkadtraffic"},{"text":"Mannuthy","id":"munnuthy"},{"text":"Marad","id":"marad"},{"text":"Maradu","id":"maradu"},{"text":"Maranalloor","id":"maranalloor"},{"text":"Marangattupilly","id":"maranagttupilly"},{"text":"Mararikulam","id":"mararikulam"},{"text":"Marayamuttom","id":"marayamuttom"},{"text":"Marayoor","id":"marayoor"},{"text":"Mathilakam","id":"mathilakam"},{"text":"Mattancherry","id":"mattancherry"},{"text":"Mattannur","id":"mattannur"},{"text":"Mattannur  Airport","id":"mattannurairport"},{"text":"Mavelikara","id":"mavelikara"},{"text":"Mavoor","id":"mavoor"},{"text":"Mayyil","id":"mayyil"},{"text":"Meenakshipuram","id":"meenakshipuram"},{"text":"Meenangadi","id":"meenangadi"},{"text":"Melattur","id":"melattur"},{"text":"Melparamba","id":"melparamba"},{"text":"Melukavu","id":"melukavu"},{"text":"Meppadi","id":"meppadi"},{"text":"Meppayur","id":"meppayur"},{"text":"Moozhiyar","id":"moozhiyar"},{"text":"Muhamma","id":"muhamma"},{"text":"Mukkom","id":"mukkom"},{"text":"Mulanthuruthy","id":"mulanthuruthy"},{"text":"Mulavukadu","id":"mulavukadu"},{"text":"Mullaperiyar","id":"mullaperiyar"},{"text":"Munakkakadavu","id":"munakkakadavu"},{"text":"Munambam","id":"munambam"},{"text":"Mundakkayam","id":"mundakkayam"},{"text":"Munnar","id":"munnar"},{"text":"Murikkasseri","id":"murikkasseri"},{"text":"Museum","id":"museum"},{"text":"Muttom","id":"muttom"},{"text":"Muvattupuzha","id":"muvattupuzha"},{"text":"Muzhakkunnu","id":"muzhakkunnu"},{"text":"Nadakkave","id":"nadakkave"},{"text":"Nadapuram","id":"nadapuram"},{"text":"Nagaroor","id":"nagaroor"},{"text":"Nallalam","id":"nallalam"},{"text":"Naruvamoodu","id":"naruvamoodu"},{"text":"Nattukal","id":"nattukal"},{"text":"Nedumangad","id":"nedumangad"},{"text":"Nedumbassery","id":"nedumbassery"},{"text":"Nedumkandam","id":"nedumkandam"},{"text":"Nedumudy","id":"nedumudy"},{"text":"Nedupuzha","id":"nedupuzha"},{"text":"Neendakara Coastal","id":"neendakaracostal"},{"text":"Nemmara","id":"nemmara"},{"text":"Nemom","id":"nemom"},{"text":"New Mahe","id":"newmahe"},{"text":"Neyyardam","id":"neyyardam"},{"text":"Neyyattinkara","id":"neyyattinkara"},{"text":"Nilambur","id":"nilambur"},{"text":"Nileshwar","id":"nileshwar"},{"text":"Njarakkal","id":"njarakkal"},{"text":"Nooranad","id":"nooranad"},{"text":"North Paravoor","id":"northparavoor"},{"text":"Oachira","id":"oachira"},{"text":"Ollur","id":"ollur"},{"text":"Oonnukal","id":"oonnukal"},{"text":"Ottappalam","id":"ottappalam"},{"text":"Padagiri","id":"padagiri"},{"text":"Padinjarathara","id":"padinjarathara"},{"text":"Pala","id":"pala"},{"text":"Palakkad Cyber","id":"palakkadcyber"},{"text":"Palakkad Kasaba","id":"kasabapkd"},{"text":"Palakkad Railway P S","id":"palakkadrailway"},{"text":"Palakkad Town North","id":"townnorth"},{"text":"Palakkad Town South","id":"townsouth"},{"text":"Palakkad Town Traffic","id":"palakkadtowntraffic"},{"text":"Palakkad Vanitha","id":"palakkadvanitha"},{"text":"Palarivattom","id":"palarivattom"},{"text":"Pallickal","id":"pallickal"},{"text":"Pallickathodu","id":"pallickathodu"},{"text":"Pallithottam","id":"pallithottam"},{"text":"Palluruthy","id":"palluruthy"},{"text":"Palode","id":"palode"},{"text":"Pampa","id":"pampa"},{"text":"Pampady","id":"pampady"},{"text":"Panamaram","id":"panamaram"},{"text":"Panangad","id":"panangad"},{"text":"Pandalam","id":"pandalam"},{"text":"Pandikkad","id":"pandikkad"},{"text":"Pangodu","id":"pangodu"},{"text":"Panniyankara","id":"panniyankara"},{"text":"Panoor","id":"panoor"},{"text":"Pantheerankavu","id":"pantheerankavu"},{"text":"Parambikulam","id":"parambikulam"},{"text":"Parappanangadi","id":"parappanangadi"},{"text":"Parassala","id":"parassala"},{"text":"Parassala Railway P S","id":"parassalarailway"},{"text":"Paravoor","id":"paravoor"},{"text":"Parippally","id":"parippally"},{"text":"Pariyaram Mcps","id":"pariyaram"},{"text":"Pathanamthitta","id":"pathanamthitta"},{"text":"Pathanamthitta Cyber Crime Ps","id":"pathanamthittacyber"},{"text":"Pathanamthitta Vanitha","id":"pathanamthittavanitha"},{"text":"Pathanapuram","id":"pathanapuram"},{"text":"Pattambi","id":"pattambi"},{"text":"Pattanakkad","id":"pattanakkad"},{"text":"Pavaratty","id":"pavarty"},{"text":"Payyannur","id":"payyannur"},{"text":"Payyavoor","id":"payyavoor"},{"text":"Payyoli","id":"payyoli"},{"text":"Pazhayangadi","id":"payangadi"},{"text":"Pazhayannur","id":"pazhayannur"},{"text":"Peechi","id":"peechi"},{"text":"Peerumedu","id":"peerumedu"},{"text":"Peramangalam","id":"peramangalam"},{"text":"Perambra","id":"perambra"},{"text":"Peravoor","id":"peravoor"},{"text":"Peringome","id":"peringome"},{"text":"Perinthalmanna","id":"perinthalmanna"},{"text":"Peroorkada","id":"peroorkada"},{"text":"Perumbavoor","id":"perumbavoor"},{"text":"Perumpadappu","id":"perumpadappu"},{"text":"Perumpetty","id":"perumpetty"},{"text":"Perunadu","id":"perunadu"},{"text":"Peruvannamoozhi","id":"peruvannamoozhi"},{"text":"Peruvanthanam","id":"peruvanthanam"},{"text":"Pettah","id":"pettah"},{"text":"Pinarayi","id":"pinarayi"},{"text":"Piravom","id":"piravom"},{"text":"Ponkunnam","id":"ponkunnam"},{"text":"Ponmudi","id":"ponmudi"},{"text":"Ponnani","id":"ponnani"},{"text":"Ponnani Coastal","id":"ponnanicoastal"},{"text":"Poochackal","id":"poochackal"},{"text":"Poojappura","id":"poojappura"},{"text":"Pookkottumpadam","id":"pookkottumpadam"},{"text":"Poonthura","id":"poonthura"},{"text":"Poovar","id":"poovar"},{"text":"Poovar Coastal","id":"poovarcoastal"},{"text":"Pooyapally","id":"pooyapally"},{"text":"Pothanikad","id":"pothanikad"},{"text":"Pothencode","id":"pothencode"},{"text":"Pothukallu","id":"pothukal"},{"text":"Pozhiyoor","id":"pozhiyoor"},{"text":"Pudukkad","id":"pudukad"},{"text":"Pudunagaram","id":"pudunagaram"},{"text":"Pudur","id":"pudurps"},{"text":"Pulikeezhu","id":"pulikeezhu"},{"text":"Pulincunnu","id":"pulincunnu"},{"text":"Pulpally","id":"pulpally"},{"text":"Punaloor Railway P S","id":"punaloorrailways"},{"text":"Punalur","id":"punalur"},{"text":"Punnapra","id":"punnapra"},{"text":"Puthencruz","id":"puthencruz"},{"text":"Puthenvelikkara","id":"puthenvelikkara"},{"text":"Puthoor","id":"puthoor"},{"text":"Rajakkadu","id":"rajakkadu"},{"text":"Rajapuram","id":"rajapuram"},{"text":"Ramamangalam","id":"ramamangalam"},{"text":"Ramankary","id":"ramankary"},{"text":"Ramapuram","id":"ramapuram"},{"text":"Ranny","id":"ranny"},{"text":"Sakthikulangara","id":"sakthikulangara"},{"text":"Sannidhanam","id":"sannidhanam"},{"text":"Santhanpara","id":"santhanpara"},{"text":"Sasthamcotta","id":"sasthamcotta"},{"text":"Sholayur","id":"sholayur"},{"text":"Shornur","id":"shornur"},{"text":"Shornur Railway P S","id":"shornurrailway"},{"text":"Sooranadu","id":"sooranadu"},{"text":"Sreekandapuram","id":"sreekandapuram"},{"text":"Sreekaryam","id":"sreekaryam"},{"text":"Sreekrishnapuram","id":"sreekrishnapuram"},{"text":"Sulthan Bathery","id":"sulthanbathery"},{"text":"Taliparamba","id":"taliparamba"},{"text":"Tanur","id":"tanur"},{"text":"Thadiyittaparambu","id":"thadiyittaparambu"},{"text":"Thalappuzha","id":"thalappuzha"},{"text":"Thalasseri","id":"thalasseri"},{"text":"Thalasseri Coastal","id":"thalassericoastal"},{"text":"Thalayolaparambu","id":"thalayolaparambu"},{"text":"Thamarassery","id":"thamarassery"},{"text":"Thampanoor","id":"thampanoor"},{"text":"Thankamani","id":"thankamani"},{"text":"Thannithodu","id":"thannithodu"},{"text":"Thenhipalam","id":"thenhipalam"},{"text":"Thenmala","id":"thenmala"},{"text":"Thidanad","id":"thidanad"},{"text":"Thirunelli","id":"thirunelli"},{"text":"Thiruvalla","id":"thiruvalla"},{"text":"Thiruvallam","id":"thiruvallam"},{"text":"Thiruvambady","id":"thiruvambady"},{"text":"Thiruvananthapuram City Traffic","id":"traffictvmcity"},{"text":"Thiruvananthapuram City Vanitha","id":"tvmcityvanitha"},{"text":"Thiruvananthapuram Railway","id":"thiruvananthapuramrailway"},{"text":"Thiruvananthapuram Rural Cyber","id":"thiruvaanthapuramruralcyber"},{"text":"Thodupuzha","id":"thodupuzha"},{"text":"Thondarnadu","id":"thondarnadu"},{"text":"Thoppumpady","id":"thoppumpady"},{"text":"Thottapally Coastal","id":"coastalpsthottapally"},{"text":"Thottilpalam","id":"thotilpalam"},{"text":"Thrikkakara","id":"thrikkakara"},{"text":"Thrikodithanam","id":"thrikodithanam"},{"text":"Thrissur City Cyber","id":"thrissurcitycyber"},{"text":"Thrissur City Vanitha","id":"vanithapsthrissur"},{"text":"Thrissur Medical College","id":"thrissurmedicalcollege"},{"text":"Thrissur Railway P S","id":"thrissurrailway"},{"text":"Thrissur Rural Cyber","id":"thrissurruralcyber"},{"text":"Thrissur Rural Vanitha","id":"thrissurrlvanitha"},{"text":"Thrissur Town East","id":"thrissurtowneast"},{"text":"Thrissur Town West","id":"thrissurtownwest"},{"text":"Thrissur Traffic","id":"trafficthrissur"},{"text":"Thrithala","id":"thrithala"},{"text":"Thumba","id":"thumba"},{"text":"Tirur","id":"tirur"},{"text":"Tirurangadi","id":"tirurangadi"},{"text":"Traffic East","id":"trafficeastekmc"},{"text":"Trikarpur Coastal","id":"trikaripurcoastal"},{"text":"Trikkunnapuzha","id":"trikkunnapuzha"},{"text":"Tvpm City Medical College","id":"medicalcollegetvmcity"},{"text":"Udayamperoor","id":"udayamperoor"},{"text":"Udumbanchola","id":"udumbanchola"},{"text":"Ulikkal","id":"ulikkal"},{"text":"Upputhara","id":"upputhara"},{"text":"Vadakkekad","id":"vadakkekad"},{"text":"Vadakkekara","id":"vadakkekara"},{"text":"Vadakkenchery","id":"vadakkencherry"},{"text":"Vadanappilly","id":"vadanapilly"},{"text":"Vaikom","id":"vaikom"},{"text":"Vakathanam","id":"vakathanam"},{"text":"Valanchery","id":"valanchery"},{"text":"Valapattanam","id":"valapattanam"},{"text":"Valappad","id":"valapad"},{"text":"Valayam","id":"valayam"},{"text":"Valiyamala","id":"valiyamala"},{"text":"Valiyathura","id":"valiyathura"},{"text":"Vallikunnam","id":"vallikunnam"},{"text":"Vanchiyoor","id":"vanchiyoor"},{"text":"Vandanmedu","id":"vandanmedu"},{"text":"Vandiperiyar","id":"vandiperiyar"},{"text":"Varantharappilly","id":"varandarapilly"},{"text":"Varapuzha","id":"varapuzha"},{"text":"Varkala","id":"varkala"},{"text":"Vatakara","id":"vatakara"},{"text":"Vatakara Coastal","id":"vatakaracoastal"},{"text":"Vattappara","id":"vattappara"},{"text":"Vattiyoorkavu","id":"vattiyoorkavu"},{"text":"Vazhakkad","id":"vazhakkad"},{"text":"Vazhakulam","id":"vazhakulam"},{"text":"Vazhikkadavu","id":"vazhikkadavu"},{"text":"Vechoochira","id":"vechoochira"},{"text":"Veeyapuram","id":"veeyapuram"},{"text":"Vellamunda","id":"vellamunda"},{"text":"Vellarada","id":"vellarada"},{"text":"Vellarikundu","id":"vellarikundu"},{"text":"Vellathooval","id":"vellathooval"},{"text":"Vellayil","id":"vellayil"},{"text":"Vellikulangara","id":"vellikulangara"},{"text":"Velloor","id":"velloor"},{"text":"Vengara","id":"vengara"},{"text":"Venjaramoodu","id":"venjaramoodu"},{"text":"Venmony","id":"venmony"},{"text":"Vidyanagar","id":"vidyanagar"},{"text":"Vilappilsala","id":"vilappilsala"},{"text":"Vithura","id":"vithura"},{"text":"Viyyur","id":"viyoor"},{"text":"Vizhinjam","id":"vizhinjam"},{"text":"Vizhinjam Coastal","id":"vizhinjamcoastal"},{"text":"Vythiri","id":"vythiri"},{"text":"Wadakkanchery","id":"wadakanchery"},{"text":"Wagamon","id":"wagamon"},{"text":"Walayar","id":"walayar"},{"text":"Wandoor","id":"wandoor"},{"text":"Waynad Cyber","id":"waynadcyber"},{"text":"Yeroor","id":"yeroor"}],
+            placeholder: "Select",
+        });
+
+        $('#search-ps').on('select2:select', function(e) {
+            var psdata = e.params.data;
+            window.location.href = 'https://ps.keralapolice.gov.in/' + psdata.id + '-ps';
+        });
+        /////////////////////////////////////////////////////////////////////////////        
+////////////
+var $affectedElements = $("p,h1,h2,h3,h4,h5,span"); // Can be extended, ex. $("div, p, span.someClass")
+        var fCount = 3;
+        var bCount = 3;
+        // Storing the original size in a data attribute so size can be reset
+        $affectedElements.each(function() {
+            var $this = $(this);
+            $this.data("orig-size", $this.css("font-size"));
+        });
+
+        $("#btn-increase").click(function() {
+
+            if (fCount > 0) {
+                fCount = fCount - 1;
+                bCount = bCount + 1;
+                changeFontSize(1);
+            }
+        })
+
+        $("#btn-decrease").click(function() {
+            if (bCount > 0) {
+                fCount = fCount + 1;
+                bCount = bCount - 1;
+                changeFontSize(-1);
+            }
+        })
+
+        $("#btn-orig").click(function() {
+            fCount = 3;
+            bCount = 3;
+            $affectedElements.each(function() {
+                var $this = $(this);
+                $this.css("font-size", $this.data("orig-size"));
+            });
+        })
+
+
+
+        function changeFontSize(direction) {
+            $affectedElements.each(function() {
+                var $this = $(this);
+                $this.css("font-size", parseInt($this.css("font-size")) + direction);
+            });
+        }
+
+        ////////////////////////////////
+
+    });
+    function setLang(lang) {
+        $.ajax({
+            type: "POST",
+            url: "https://ps.keralapolice.gov.in/setLanguage",
+            cache: false,
+            data: {
+                lang: lang,
+                ci_csrf_token: ''
+            },
+            dataType: 'json',
+            beforeSend: function() {
+                $('body').block();
+            },
+            success: function(data) {
+                $('body').unblock();
+                if (data.success) {
+                    location.reload();
+                } else {
+                    alert(data.msg);
+                }
+            },
+            error: function(e) {
+                $('body').unblock();
+                alert(data.msg);
+            }
+        });
+
+    }
+</script>
+</body>
+
+</html>
